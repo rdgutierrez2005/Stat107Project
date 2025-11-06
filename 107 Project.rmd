@@ -10,7 +10,8 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-###ABSTRACT - The NCAA SEC is one of the premier conferences in college football from recent years, but how much is each program represented in the draft? What we are looking to accomplish is to highlight which schools in the NCAA SEC (South Eastern Conference) have gained representation in the draft and which programs have lost representation in the draft over the last 15 years. We collected our data from Pro-Football-Reference.com and combined each program in the SEC data sets into a singular Excel file and analyzed the data by distinhuishing which players came from the which college program, seeing if the player was drafted, then drafted within the years 2011-2025.
+###ABSTRACT 
+The NCAA SEC is one of the premier conferences in college football from recent years, but how much is each program represented in the draft? What we are looking to accomplish is to highlight which schools in the NCAA SEC (South Eastern Conference) have gained representation in the draft and which programs have lost representation in the draft over the last 15 years. We collected our data from Pro-Football-Reference.com and combined each program in the SEC data sets into a singular Excel file and analyzed the data by distinhuishing which players came from the which college program, seeing if the player was drafted, then drafted within the years 2011-2025.
 
 ```{r}
 library(readxl)
