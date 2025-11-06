@@ -11,24 +11,32 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
 ```{r}
 library(readxl)
-College_Dataset <- read_excel("College Dataset.xlsx")
-head(College_Dataset, n = 20)
+library(dplyr)
+
+# Read the Excel file
+df <- read_excel("College Dataset.xlsx")
+
+# Rename columns for clarity (based on the header)
+colnames(df) <- c("Pos", "Player", "College_Stats", "AP1", "PB", "St", "wAV", "Ht", "Wt", "Yrs_Num", "Years_Range", "School")
+
+# Extract the start year from Years_Range
+df <- df %>%
+  mutate(start_year = as.integer(sub("-.*", "", Years_Range)))
+
+# Filter to keep players who started in 2011 or later
+df_filtered <- df %>%
+  filter(start_year >= 2011)
+
+# Select only the specified columns
+df_selected <- df_filtered %>%
+  select(Pos, Player, Yrs_Num, Years_Range, School)
+
+# Rename columns as per user labels if desired
+colnames(df_selected) <- c("Position", "Player", "Years Played", "Years Played (From-To)", "School")
+
+# View the selected data (or you can use write_excel_csv to save it)
+head(df_selected)
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
