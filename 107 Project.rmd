@@ -16,27 +16,27 @@ library(readxl)
 library(dplyr)
 
 # Read the Excel file
-df <- read_excel("College Dataset.xlsx")
+data <- read_excel("College Dataset.xlsx")
 
 # Rename columns for clarity (based on the header)
-colnames(df) <- c("Pos", "Player", "College_Stats", "AP1", "PB", "St", "wAV", "Ht", "Wt", "Yrs_Num", "Years_Range", "School")
+colnames(data) <- c("Pos", "Player", "College_Stats", "AP1", "PB", "St", "wAV", "Ht", "Wt", "Yrs_Num", "Years_Range", "School")
 
 # Extract the start year from Years_Range
-df <- df %>%
+data <- data %>%
   mutate(start_year = as.integer(sub("-.*", "", Years_Range)))
 
 # Filter to keep players who started in 2011 or later
-df_filtered <- df %>%
+filtered_data <- data %>%
   filter(start_year >= 2011)
 
 # Select only the specified columns
-df_selected <- df_filtered %>%
+fixed_data <- filtered_data %>%
   select(Pos, Player, Yrs_Num, Years_Range, School)
 
 # Rename columns as per user labels if desired
-colnames(df_selected) <- c("Position", "Player", "Years Played", "Years Played (From-To)", "School")
+colnames(fixed_data) <- c("Position", "Player", "Years Played", "Years Played (From-To)", "School")
 
 # View the selected data (or you can use write_excel_csv to save it)
-head(df_selected)
+head(fixed_data)
 ```
 
