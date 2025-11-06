@@ -41,3 +41,6 @@ colnames(fixed_data) <- c("Position", "Player", "Years Played", "Years Played (F
 head(fixed_data)
 ```
 
+# Data
+
+The data set being used for this analysis is "College_Dataset.xlsx", which contains player names and the colleges they attended. This data was retrieved from the Pro-Football-Reference website that collect's and releases all NFL data including players and what schools they attended before entering the NFL. The variables that are relevant in the data set are as follow, the players name, the school they came from, and the years the player started to play in the NFL to the last year they played in the NFL. As far as cleaning the data, what we did was get rid of unnecessary variables such as AP1, PB, St, wAV, Ht, and Wt, and only kept the relevant ones as stated before. Then since the data set has players from the 20th century, and 2000 to 2010, what we did was just extracted the starting year from each player’s career range, and filtered the data to include only players who began their NFL careers in 2011 or later. No, the data will not be generated through a randomized simulation.
