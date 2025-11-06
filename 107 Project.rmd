@@ -11,6 +11,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+**How has the number of NFL players from each SEC school on 53-man rosters changed over time (e.g., 2011–2015, 2016–2020, and 2021–2025), and which schools have shown the most growth or decline in player representation?**
+
 ```{r}
 library(readxl)
 library(dplyr)
