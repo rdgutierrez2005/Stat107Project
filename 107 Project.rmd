@@ -14,7 +14,7 @@ Question: How has the number of NFL players from each SEC school changed over ti
 
 # ABSTRACT
 
-The NCAA SEC is one of the premier conferences in college football from recent years, but how much is each program represented in the draft? What we are looking to accomplish is to highlight which schools in the NCAA SEC (South Eastern Conference) have gained representation in the draft and which programs have lost representation in the draft over the last 15 years. We collected our data from Pro-Football-Reference.com and combined each program in the SEC data sets into a singular Excel file and analyzed the data by distinhuishing which players came from the which college program, seeing if the player was drafted, then drafted within the years 2011-2025.
+The NCAA SEC is one of the premier conferences in college football from recent years, but how much is each program represented in the draft? What we are looking to accomplish is to highlight which schools in the NCAA SEC (South Eastern Conference) have gained representation in the draft and which programs have lost representation in the draft over the last 15 years. We collected our data from Pro-Football-Reference.com and combined each program in the SEC data sets into a singular Excel file and analyzed the data by distinhuishing which players came from the which college program, seeing if the player was drafted, then drafted within the years 2011-2025. 
 
 # Data
 The data set used for this analysis, “College_Dataset.xlsx,” contains information on NFL players and the colleges they attended. The data was obtained from Pro-Football-Reference, a reliable source that collects and publishes official NFL statistics, including player backgrounds and school affiliations. Relevant variables include each player’s name, the college they attended, and the range of years they played in the NFL. During the cleaning process, unnecessary columns such as AP1, PB, St, wAV, Ht, and Wt were removed, keeping only the relevant variables. Additionally, since the data set included players from earlier eras, we extracted the starting year from each player’s career range and filtered the data to include only those who began their NFL careers in 2011 or later. The data is entirely real and will not be generated through any randomized simulation.
@@ -45,7 +45,7 @@ fixed_data <- filtered_data %>%
   select(Pos, Player, Yrs_Num, Years_Range, School)
 
 # Rename columns as per user labels if desired
-colnames(fixed_data) <- c("Position", "Player", "Years Played", "Years Played (From-To)", "School")
+colnames(fixed_data) <- c("Position", "Player", "Years Played in NFL", "Years Played in NFL (From-To)", "School")
 
 # View the selected data (or you can use write_excel_csv to save it)
 head(fixed_data)
