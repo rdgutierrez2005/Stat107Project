@@ -52,48 +52,49 @@ head(fixed_data)
 ```
 
 ```{r}
-library(readxl)
-library(dplyr)
-library(stringr)   # helpful for string ops
-library(ggplot2)   # plotting later
+# Load necessary libraries
+library(tidyverse)
 
-# Read the Excel file
-data <- read_excel("College Dataset.xlsx")
+# Read the CSV file (update the path if needed)
+df <- read.csv("my_updated_dataset.csv")
 
-# Rename columns clearly
-colnames(data) <- c("Pos","Player","College_Stats","AP1","PB","St","wAV","Ht","Wt","Yrs_Num","Years_Range","School")
+# Convert 'Years Played (From-To)' into numeric start and end years
+df <- df %>%
+  separate(`Years.Played..From.To.`, into = c("Start", "End"), sep = "-", convert = TRUE)
 
-# Extract start year (handle cases like "2015-21" or "2015–2021")
-data <- data %>%
-  mutate(start_year = as.integer(str_extract(Years_Range, "^[0-9]{4}")))
+# Define year ranges
+df <- df %>%
+  mutate(YearRange = case_when(
+    Start >= 2011 & Start <= 2015 ~ "2011-2015",
+    Start >= 2016 & Start <= 2020 ~ "2016-2020",
+    Start >= 2021 & Start <= 2025 ~ "2021-2025",
+    TRUE ~ NA_character_
+  ))
 
-# Filter players who started in 2011 or later
-filtered_data <- data %>%
-  filter(!is.na(start_year) & start_year >= 2011)
+# Count players per team and year range
+team_summary <- df %>%
+  filter(!is.na(YearRange)) %>%
+  group_by(School, YearRange) %>%
+  summarise(Players = n(), .groups = "drop")
 
-# Select + rename
-fixed_data <- filtered_data %>%
-  select(Pos, Player, Yrs_Num, Years_Range, School) %>%
-  rename(Position = Pos,
-         `Years Played` = Yrs_Num,
-         `Years Played (From-To)` = Years_Range)
+# List of teams
+teams <- unique(team_summary$School)
 
-# Create period groups
-fixed_data <- fixed_data %>%
-  mutate(start_year = as.integer(str_extract(`Years Played (From-To)`, "^[0-9]{4}")),
-         period = case_when(
-           start_year %in% 2011:2015 ~ "2011-2015",
-           start_year %in% 2016:2020 ~ "2016-2020",
-           start_year %in% 2021:2025 ~ "2021-2025",
-           TRUE ~ "Other"
-         ))
-
-# Save cleaned data
-write.csv(fixed_data, "data/cleaned/cleaned_data.csv", row.names = FALSE)
-
-# Quick check
-table(fixed_data$period, useNA = "ifany")
-head(fixed_data)
+# Create a bar plot for each team
+for (team in teams) {
+  team_data <- team_summary %>% filter(School == team)
+  
+  p <- ggplot(team_data, aes(x = YearRange, y = Players, fill = YearRange)) +
+    geom_bar(stat = "identity", width = 0.6) +
+    labs(title = team,
+         x = "Year Range",
+         y = "Number of Players") +
+    theme_minimal() +
+    theme(legend.position = "none",
+          plot.title = element_text(hjust = 0.5, face = "bold"))
+  
+  print(p)
+}
 
 ```
 
