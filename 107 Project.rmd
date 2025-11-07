@@ -10,12 +10,17 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-# Abstract 
+Question: How has the number of NFL players from each SEC school changed over time (e.g., 2011–2015, 2016–2020, and 2021–2025), and which schools have shown the most growth or decline in player representation?
+
+# ABSTRACT
 
 The NCAA SEC is one of the premier conferences in college football from recent years, but how much is each program represented in the draft? What we are looking to accomplish is to highlight which schools in the NCAA SEC (South Eastern Conference) have gained representation in the draft and which programs have lost representation in the draft over the last 15 years. We collected our data from Pro-Football-Reference.com and combined each program in the SEC data sets into a singular Excel file and analyzed the data by distinhuishing which players came from the which college program, seeing if the player was drafted, then drafted within the years 2011-2025.
 
 # Data
 The data set used for this analysis, “College_Dataset.xlsx,” contains information on NFL players and the colleges they attended. The data was obtained from Pro-Football-Reference, a reliable source that collects and publishes official NFL statistics, including player backgrounds and school affiliations. Relevant variables include each player’s name, the college they attended, and the range of years they played in the NFL. During the cleaning process, unnecessary columns such as AP1, PB, St, wAV, Ht, and Wt were removed, keeping only the relevant variables. Additionally, since the data set included players from earlier eras, we extracted the starting year from each player’s career range and filtered the data to include only those who began their NFL careers in 2011 or later. The data is entirely real and will not be generated through any randomized simulation.
+
+# Visualization
+
 
 ```{r}
 library(readxl)
@@ -45,3 +50,50 @@ colnames(fixed_data) <- c("Position", "Player", "Years Played", "Years Played (F
 # View the selected data (or you can use write_excel_csv to save it)
 head(fixed_data)
 ```
+
+```{r}
+library(readxl)
+library(dplyr)
+library(stringr)   # helpful for string ops
+library(ggplot2)   # plotting later
+
+# Read the Excel file
+data <- read_excel("College Dataset.xlsx")
+
+# Rename columns clearly
+colnames(data) <- c("Pos","Player","College_Stats","AP1","PB","St","wAV","Ht","Wt","Yrs_Num","Years_Range","School")
+
+# Extract start year (handle cases like "2015-21" or "2015–2021")
+data <- data %>%
+  mutate(start_year = as.integer(str_extract(Years_Range, "^[0-9]{4}")))
+
+# Filter players who started in 2011 or later
+filtered_data <- data %>%
+  filter(!is.na(start_year) & start_year >= 2011)
+
+# Select + rename
+fixed_data <- filtered_data %>%
+  select(Pos, Player, Yrs_Num, Years_Range, School) %>%
+  rename(Position = Pos,
+         `Years Played` = Yrs_Num,
+         `Years Played (From-To)` = Years_Range)
+
+# Create period groups
+fixed_data <- fixed_data %>%
+  mutate(start_year = as.integer(str_extract(`Years Played (From-To)`, "^[0-9]{4}")),
+         period = case_when(
+           start_year %in% 2011:2015 ~ "2011-2015",
+           start_year %in% 2016:2020 ~ "2016-2020",
+           start_year %in% 2021:2025 ~ "2021-2025",
+           TRUE ~ "Other"
+         ))
+
+# Save cleaned data
+write.csv(fixed_data, "data/cleaned/cleaned_data.csv", row.names = FALSE)
+
+# Quick check
+table(fixed_data$period, useNA = "ifany")
+head(fixed_data)
+
+```
+
