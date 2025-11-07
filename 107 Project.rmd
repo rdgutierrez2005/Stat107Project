@@ -116,6 +116,10 @@ These preliminary visualizations support our future analysis by allowing us to c
 
 # Analysis
 
-For the analysis, we plan to use descriptive statisitcs and visual models to track changes in the number of NFL players from each SEC school over the three time periods. We'll look at the overall trend for each school using a simple linear regression, which will help show whether the number of NFL players from that school is going up or down over time. We'll also use percentage change calculations to measure growth rates and rank the schools based on overall gains or declines. These methods should make it clear which schools have built a stronger NFL presence over time. We expect that powerhouse programs like Alabama and Georgia will show a steady growth, while schools like Vanderbilt and Auburn may show slight growth or even a decline.
+For the analysis, we plan to use descriptive statistics and visual models to track changes in the number of NFL players from each SEC school over the three time periods. We'll look at the overall trend for each school using a simple linear regression, which will help show whether the number of NFL players from that school is going up or down over time. We'll also use percentage change calculations to measure growth rates and rank the schools based on overall gains or declines. These methods should make it clear which schools have built a stronger NFL presence over time. We expect that powerhouse programs like Alabama and Georgia will show a steady growth, while schools like Vanderbilt and Auburn may show slight growth or even a decline.
+
+# Contributions
+
+Omar Sepulveda: Gathered data sets, completed data section, code used to clean data set, code for the visuals, and completed analysis section
 
 
