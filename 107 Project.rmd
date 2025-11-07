@@ -3,8 +3,8 @@ title: "Trends in NFL Player Representation from SEC Schools (2011–2025)"
 author: "Omar Sepulveda, Riccardo Gutierrez, Naomi Menard"
 date: "2025-11-06"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -54,6 +54,7 @@ The data set used for this analysis, “College_Dataset.xlsx,” contains inform
 ```{r}
 # Load necessary libraries
 library(tidyverse)
+library(gridExtra)  # for arranging multiple plots
 
 # Read the CSV file (update the path if needed)
 df <- read.csv("my_updated_dataset.csv")
@@ -80,22 +81,35 @@ team_summary <- df %>%
 # List of teams
 teams <- unique(team_summary$School)
 
-# Create a bar plot for each team
+# Find the global maximum Players count for consistent y-axis
+y_max <- max(team_summary$Players)
+
+# Create plots and print 4 per group
+plots <- list()
+
 for (team in teams) {
   team_data <- team_summary %>% filter(School == team)
   
   p <- ggplot(team_data, aes(x = YearRange, y = Players, fill = YearRange)) +
     geom_bar(stat = "identity", width = 0.6) +
-    labs(title = team,
-         x = "Year Range",
-         y = "Number of Players") +
-    theme_minimal() +
-    theme(legend.position = "none",
-          plot.title = element_text(hjust = 0.5, face = "bold"))
+    scale_y_continuous(limits = c(0, y_max)) +  # consistent y-axis
+    labs(title = team, x = "Year Range", y = "Number of Players") +
+    theme_minimal(base_size = 12) +
+    theme(
+      legend.position = "none",
+      plot.title = element_text(hjust = 0.5, face = "bold")
+    )
   
-  print(p)
+  plots[[team]] <- p
 }
 
+# Print 4 plots per image
+for (i in seq(1, length(plots), by = 4)) {
+  grid.arrange(
+    grobs = plots[i:min(i + 3, length(plots))],
+    ncol = 2, nrow = 2
+  )
+}
 ```
 
 These preliminary visualizations support our future analysis by allowing us to compare the number of NFL players produced by various SEC colleges across different time periods. By examining the bar plots, we can identify early patterns of growth or decline in player representation for each school. In later stages of the analysis, we will compare these bar plots in greater detail to draw conclusions about which colleges have shown the most progress or decline in producing NFL players over the years.
