@@ -3,7 +3,7 @@ title: "Trends in NFL Player Representation from SEC Schools (2011–2025)"
 author: "Omar Sepulveda, Riccardo Gutierrez, Naomi Menard"
 date: "2025-11-06"
 output:
-  pdata_set_document: default
+  pdf_set_document: default
   html_document: default
 ---
 
