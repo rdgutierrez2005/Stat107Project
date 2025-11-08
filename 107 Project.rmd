@@ -3,7 +3,7 @@ title: "Trends in NFL Player Representation from SEC Schools (2011–2025)"
 author: "Omar Sepulveda, Riccardo Gutierrez, Naomi Menard"
 date: "2025-11-06"
 output:
-  pdf_document: default
+  pdata_set_document: default
   html_document: default
 ---
 
@@ -57,14 +57,14 @@ library(tidyverse)
 library(gridExtra)  # for arranging multiple plots
 
 # Read the CSV file (update the path if needed)
-df <- read.csv("my_updated_dataset.csv")
+data_set <- read.csv("my_updated_dataset.csv")
 
 # Convert 'Years Played (From-To)' into numeric start and end years
-df <- df %>%
+data_set <- data_set %>%
   separate(`Years.Played..From.To.`, into = c("Start", "End"), sep = "-", convert = TRUE)
 
 # Define year ranges
-df <- df %>%
+data_set <- data_set %>%
   mutate(YearRange = case_when(
     Start >= 2011 & Start <= 2015 ~ "2011-2015",
     Start >= 2016 & Start <= 2020 ~ "2016-2020",
@@ -73,24 +73,24 @@ df <- df %>%
   ))
 
 # Count players per team and year range
-team_summary <- df %>%
+college_summary <- data_set %>%
   filter(!is.na(YearRange)) %>%
   group_by(School, YearRange) %>%
   summarise(Players = n(), .groups = "drop")
 
 # List of teams
-teams <- unique(team_summary$School)
+teams <- unique(college_summary$School)
 
 # Find the global maximum Players count for consistent y-axis
-y_max <- max(team_summary$Players)
+y_max <- max(college_summary$Players)
 
 # Create plots and print 4 per group
 plots <- list()
 
 for (team in teams) {
-  team_data <- team_summary %>% filter(School == team)
+  college_data <- college_summary %>% filter(School == team)
   
-  p <- ggplot(team_data, aes(x = YearRange, y = Players, fill = YearRange)) +
+  p <- ggplot(college_data, aes(x = YearRange, y = Players, fill = YearRange)) +
     geom_bar(stat = "identity", width = 0.6) +
     scale_y_continuous(limits = c(0, y_max)) +  # consistent y-axis
     labs(title = team, x = "Year Range", y = "Number of Players") +
@@ -111,6 +111,43 @@ for (i in seq(1, length(plots), by = 4)) {
   )
 }
 ```
+
+```{r}
+# Load necessary libraries
+library(tidyverse)
+library(knitr)
+
+# Read the CSV file (update the path if needed)
+data_set <- read.csv("my_updated_dataset.csv")
+
+# Convert 'Years Played (From-To)' into numeric start and end years
+data_set <- data_set %>%
+  separate(`Years.Played..From.To.`, into = c("Start", "End"), sep = "-", convert = TRUE)
+
+# Define year ranges
+data_set <- data_set %>%
+  mutate(YearRange = case_when(
+    Start >= 2011 & Start <= 2015 ~ "2011-2015",
+    Start >= 2016 & Start <= 2020 ~ "2016-2020",
+    Start >= 2021 & Start <= 2025 ~ "2021-2025",
+    TRUE ~ NA_character_
+  ))
+
+# Count players per team and year range
+college_summary <- data_set %>%
+  filter(!is.na(YearRange)) %>%
+  group_by(School, YearRange) %>%
+  summarise(Players = n(), .groups = "drop")
+
+# Pivot to wide format for numerical display (schools as rows, year ranges as columns)
+college_summary_wide <- college_summary %>%
+  pivot_wider(names_from = YearRange, values_from = Players, values_fill = 0) %>%
+  arrange(School)  # Sort by school name for better readability
+
+# Print the numerical data as a table
+print(college_summary_wide)
+```
+
 
 These preliminary visualizations support our future analysis by allowing us to compare the number of NFL players produced by various SEC colleges across different time periods. By examining the bar plots, we can identify early patterns of growth or decline in player representation for each school. In later stages of the analysis, we will compare these bar plots in greater detail to draw conclusions about which colleges have shown the most progress or decline in producing NFL players over the years.
 
