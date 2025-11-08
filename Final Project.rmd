@@ -47,7 +47,7 @@ For the analysis, we plan to use descriptive statistics and visual models to tra
 
 # Contributions
 
-Omar Sepulveda: Gathered data sets, completed data section, code used to clean data set, code for the visuals, and completed analysis section
+Omar Sepulveda: Gathered data sets, completed data section, code used to clean data set, code for the visuals, completed analysis section, and wrote step by step process in README.md
 
 Riccardo Gutierrez: Gathered data sets, completed abstract section, and contributed to visualization and analysis section.
 
