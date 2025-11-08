@@ -17,7 +17,7 @@ source("00_requirements.R")
 
 # Abstract
 
-The NCAA SEC is one of the premier conferences in college football from recent years, but how much is each program represented in the draft? We collected our data from Pro-Football-Reference.com and combined each program in the SEC data sets into a singular Excel file and analyzed the data by distinguishing which players came from which college program, seeing if the player was drafted, then drafted within the years 2011-2025. 
+The NCAA SEC is one of the premier conferences in college football from recent years, but how much is each program represented in the draft? We collected our data from Pro-Football-Reference.com and combined each program in the SEC data sets into a singular Excel file and analyzed the data by distinguishing which players came from which college program, seeing if the player was drafted, then drafted within the years 2011-2025. From there we used bar graphs and histograms to further comprehend the trends of the collegiate programs alumni to further analyze when each collegiate program was at its peak during the given time period. Hopefully our analysis can help future students choose which program and legacy they want to lead. For example whether they want to compete on an elite program or compete against an elite program within the conference.
 
 # Introduction
 
@@ -39,14 +39,15 @@ source("02_funct_Plots.R")
 source("03_numeric_Table.R")
 ```
 
-These preliminary visualizations support our future analysis by allowing us to compare the number of NFL players produced by various SEC colleges across different time periods. By examining the bar plots, we can identify early patterns of growth or decline in player representation for each school. In later stages of the analysis, we will compare these bar plots in greater detail to draw conclusions about which colleges have shown the most progress or decline in producing NFL players over the years.
+These preliminary visualizations support our future analysis by allowing us to compare the number of NFL players produced by various SEC colleges across different time periods. By examining the bar plots, we can identify early patterns of growth or decline in player representation for each school. In later stages of the analysis, we will compare these bar plots in greater detail to draw conclusions about which colleges have shown the most progress or decline in producing NFL players over the years. Further visualizations we discussed implementing include histograms that display the trends for each collegiate program within the conference during the year 2011-2025 time period.
 
 # Analysis
 
-For the analysis, we plan to use descriptive statistics and visual models to track changes in the number of NFL players from each SEC school over the three time periods. We'll look at the overall trend for each school using a simple linear regression, which will help show whether the number of NFL players from that school is going up or down over time. We'll also use percentage change calculations to measure growth rates and rank the schools based on overall gains or declines. These methods should make it clear which schools have built a stronger NFL presence over time. We expect that powerhouse programs like Alabama and Georgia will show a steady growth, while schools like Vanderbilt and Auburn may show slight growth or even a decline.
+For the analysis, we plan to use descriptive statistics and visual models to track changes in the number of NFL players from each SEC school over the three time periods. We'll look at the overall trend for each school using a simple linear regression, which will help show whether the number of NFL players from that school is going up or down over time. We'll also use percentage change calculations to measure growth rates and rank the schools based on overall gains or declines. These methods should make it clear which schools have built a stronger NFL presence over time. We expect that powerhouse programs like Alabama and Georgia will show a steady growth, while schools like Vanderbilt and Auburn may show slight growth or even a decline. For further analysis discussing the histograms hopefully the year by year displays for each collegiate program in the conference will further contribute to our theory of steady growth for the elite programs while the lesser known programs won't display such trends. We expect to find that most if not all programs within the conference will display some form of growth within the 2011-2025 time period and then a variation of growth and decay during the covid year as not all programs held the same appeal during the pandemic. With big name schools such as Alabama, Georgia and Texas will display steady growth and the values will remain relatively high compared to lesser known schools such as Auburn and Vanderbilt.
 
 # Contributions
 
 Omar Sepulveda: Gathered data sets, completed data section, code used to clean data set, code for the visuals, and completed analysis section
+Riccardo Gutierrez: Gathered data sets, completed abstract section, and contributed to visualization and analysis section.
 
 
