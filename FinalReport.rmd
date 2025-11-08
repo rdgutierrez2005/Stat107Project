@@ -11,7 +11,12 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+Github Link : https://github.com/rdgutierrez2005/Stat107Project-The3rdTry
+
 ```{r}
+# This chunk loads the requirements script to attach necessary packages like tidyverse and gridExtra.   It sets up the environment for data manipulation and visualization.
+# Outcome: Packages are installed and enabled
+
 source("00_requirements.R")
 ```
 
@@ -25,6 +30,9 @@ The purpose of this analysis is to highlight which schools in the NCAA SEC (Sout
 
 # Data
 ```{r message=FALSE, warning=FALSE}
+# This chunk sources the data cleaning script to process the raw dataset. It reads the     #            "College_Dataset.xlsx" file, renames columns, extracts start years, filters to 2011+, selects key     variables, cleans text, and saves the cleaned data.
+# Outcome: A cleaned dataset is created and saved as "cleaned_data.RDS" for use in later chunks.
+
 source("01_funct_DataCleaning.R")
 ```
 The data set used for this analysis, “College_Dataset.xlsx,” contains information on NFL players and the colleges they attended. The data was obtained from Pro-Football-Reference, a reliable source that collects and publishes official NFL statistics, including player backgrounds and school affiliations. Relevant variables include each player’s name, the college they attended, and the range of years they played in the NFL. During the cleaning process, unnecessary columns such as AP1, PB, St, wAV, Ht, and Wt were removed, keeping only the relevant variables. Additionally, since the data set included players from earlier eras, we extracted the starting year from each player’s career range and filtered the data to include only those who began their NFL careers in 2011 or later. The data is entirely real and will not be generated through any randomized simulation.
@@ -32,10 +40,14 @@ The data set used for this analysis, “College_Dataset.xlsx,” contains inform
 # Visualization & Analysis
 
 ```{r}
+# This chunk sources the plotting script to create bar plots. It generates individual bar charts for    each SEC school, showing player counts across the three year ranges.
+# Outcome: Bar plots are produced and displayed, visualizing trends in player representation.
 source("02_funct_Plots.R")
 ```
 
 ```{r}
+# This chunk sources the table script to summarize data numerically. It creates a tibble table with     player counts by school and year range.
+# Outcome: A table is generated and printed, providing exact counts for comparison.
 source("03_numeric_Table.R")
 ```
 
@@ -51,4 +63,4 @@ Omar Sepulveda: Gathered data sets, completed data section, code used to clean d
 
 Riccardo Gutierrez: Gathered data sets, completed abstract section, and contributed to visualization and analysis section.
 
-
+Naomi Menard: Completed introduction, gathered data sets, contributed to data, visuals/code , and analysis section. 
