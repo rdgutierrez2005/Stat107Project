@@ -43,15 +43,15 @@ The data set used for this analysis, “College_Dataset.xlsx,” contains inform
 
 ```{r}
 # This chunk sources the plotting script to create bar plots. 
-# It creates bar charts for each SEC school, showing player counts across three year gaps.
-# Outcome: Bar plots are created and displayed, visualizing trends in player representation.
+# It makes bar charts for each SEC school, showing player counts across three year gaps.
+# Outcome: Bar plots are made and displayed, visualizing trends in player representation.
 source("02_funct_Plots.R")
 ```
 
 ```{r}
 # This chunk sources the table script to summarize data numerically. 
 # It creates a tibble table with player counts by school and year range.
-# Outcome: Table is generated and printed, providing exact counts for comparison.
+# Outcome: A table is generated and printed, providing exact counts for comparison.
 source("03_numeric_Table.R")
 ```
 
