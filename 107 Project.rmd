@@ -10,9 +10,14 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+```{r}
+source("00_requirements.R")
+```
+
 # Abstract
 
-The NCAA SEC is one of the premier conferences in college football from recent years, but how much is each program represented in the draft? We collected our data from Pro-Football-Reference.com and combined each program in the SEC data sets into a singular Excel file and analyzed the data by distinguishing which players came from which college program, seeing if the player was drafted, then drafted within the years 2011-2025. As of now the results express how big name schools within the conference (i.e. Alabama, Georgia, Texas) all show steady growth within the year 2011-2025 time frame. Our analyses can help students looking to play football within the SEC decide on what program they want to play for. Either an established program where they will have to fight for a roster spot or a rising program where they can compete to win the conference against the elite programs.
+The NCAA SEC is one of the premier conferences in college football from recent years, but how much is each program represented in the draft? We collected our data from Pro-Football-Reference.com and combined each program in the SEC data sets into a singular Excel file and analyzed the data by distinguishing which players came from which college program, seeing if the player was drafted, then drafted within the years 2011-2025. 
 
 # Introduction
 
@@ -20,107 +25,28 @@ The purpose of this analysis is to highlight which schools in the NCAA SEC (Sout
 
 # Data
 ```{r}
-library(readxl)
-library(dplyr)
-
-# Read the Excel file
-data <- read_excel("College Dataset.xlsx")
-
-# Rename columns for clarity (based on the header)
-colnames(data) <- c("Pos", "Player", "College_Stats", "AP1", "PB", "St", "wAV", "Ht", "Wt", "Yrs_Num", "Years_Range", "School")
-
-# Extract the start year from Years_Range
-data <- data %>%
-  mutate(start_year = as.integer(sub("-.*", "", Years_Range)))
-
-# Filter to keep players who started in 2011 or later
-filtered_data <- data %>%
-  filter(start_year >= 2011)
-
-# Select only the specified columns
-fixed_data <- filtered_data %>%
-  select(Pos, Player, Yrs_Num, Years_Range, School)
-
-# Rename columns as per user labels if desired
-colnames(fixed_data) <- c("Position", "Player", "Years Played in NFL", "Years Played in NFL (From-To)", "School")
-
-# View the selected data (or you can use write_excel_csv to save it)
-head(fixed_data)
+source("01_funct_DataCleaning.R")
 ```
 The data set used for this analysis, “College_Dataset.xlsx,” contains information on NFL players and the colleges they attended. The data was obtained from Pro-Football-Reference, a reliable source that collects and publishes official NFL statistics, including player backgrounds and school affiliations. Relevant variables include each player’s name, the college they attended, and the range of years they played in the NFL. During the cleaning process, unnecessary columns such as AP1, PB, St, wAV, Ht, and Wt were removed, keeping only the relevant variables. Additionally, since the data set included players from earlier eras, we extracted the starting year from each player’s career range and filtered the data to include only those who began their NFL careers in 2011 or later. The data is entirely real and will not be generated through any randomized simulation.
 
 # Visualization & Analysis
 
 ```{r}
-# Load necessary libraries
-library(tidyverse)
-library(gridExtra)  # for arranging multiple plots
-
-# Read the CSV file (update the path if needed)
-df <- read.csv("my_updated_dataset.csv")
-
-# Convert 'Years Played (From-To)' into numeric start and end years
-df <- df %>%
-  separate(`Years.Played..From.To.`, into = c("Start", "End"), sep = "-", convert = TRUE)
-
-# Define year ranges
-df <- df %>%
-  mutate(YearRange = case_when(
-    Start >= 2011 & Start <= 2015 ~ "2011-2015",
-    Start >= 2016 & Start <= 2020 ~ "2016-2020",
-    Start >= 2021 & Start <= 2025 ~ "2021-2025",
-    TRUE ~ NA_character_
-  ))
-
-# Count players per team and year range
-team_summary <- df %>%
-  filter(!is.na(YearRange)) %>%
-  group_by(School, YearRange) %>%
-  summarise(Players = n(), .groups = "drop")
-
-# List of teams
-teams <- unique(team_summary$School)
-
-# Find the global maximum Players count for consistent y-axis
-y_max <- max(team_summary$Players)
-
-# Create plots and print 4 per group
-plots <- list()
-
-for (team in teams) {
-  team_data <- team_summary %>% filter(School == team)
-  
-  p <- ggplot(team_data, aes(x = YearRange, y = Players, fill = YearRange)) +
-    geom_bar(stat = "identity", width = 0.6) +
-    scale_y_continuous(limits = c(0, y_max)) +  # consistent y-axis
-    labs(title = team, x = "Year Range", y = "Number of Players") +
-    theme_minimal(base_size = 12) +
-    theme(
-      legend.position = "none",
-      plot.title = element_text(hjust = 0.5, face = "bold")
-    )
-  
-  plots[[team]] <- p
-}
-
-# Print 4 plots per image
-for (i in seq(1, length(plots), by = 4)) {
-  grid.arrange(
-    grobs = plots[i:min(i + 3, length(plots))],
-    ncol = 2, nrow = 2
-  )
-}
+source("02_funct_Plots.R")
 ```
 
-These preliminary visualizations support our future analysis by allowing us to compare the number of NFL players produced by various SEC colleges across different time periods. By examining the bar plots, we can identify early patterns of growth or decline in player representation for each school. In later stages of the analysis, we will compare these bar plots in greater detail to draw conclusions about which colleges have shown the most progress or decline in producing NFL players over the years. In terms of future visualizations we were discussing creating a histogram for each collegiate program highlighting how the representation for each team changes for each year within the year 2011-2025 time span. Using these histograms we will further be able to analyze the peak within the year 2011-2025 period for each collegiate program to see if they peaked at the beginning or within recent years.
+```{r}
+source("03_numeric_Table.R")
+```
+
+These preliminary visualizations support our future analysis by allowing us to compare the number of NFL players produced by various SEC colleges across different time periods. By examining the bar plots, we can identify early patterns of growth or decline in player representation for each school. In later stages of the analysis, we will compare these bar plots in greater detail to draw conclusions about which colleges have shown the most progress or decline in producing NFL players over the years.
 
 # Analysis
 
-For the analysis, we plan to use descriptive statistics and visual models to track changes in the number of NFL players from each SEC school over the three time periods. We'll look at the overall trend for each school using a simple linear regression, which will help show whether the number of NFL players from that school is going up or down over time. We'll also use percentage change calculations to measure growth rates and rank the schools based on overall gains or declines. These methods should make it clear which schools have built a stronger NFL presence over time. We expect that powerhouse programs like Alabama and Georgia will show a steady growth, while schools like Vanderbilt and Auburn may show slight growth or even a decline. Further analyses when discussing future histograms created will help us solidify our claims that Alabama and Georgia will show steady growth, while the less notable teams within the conference will show a steady growth or decline. 
+For the analysis, we plan to use descriptive statistics and visual models to track changes in the number of NFL players from each SEC school over the three time periods. We'll look at the overall trend for each school using a simple linear regression, which will help show whether the number of NFL players from that school is going up or down over time. We'll also use percentage change calculations to measure growth rates and rank the schools based on overall gains or declines. These methods should make it clear which schools have built a stronger NFL presence over time. We expect that powerhouse programs like Alabama and Georgia will show a steady growth, while schools like Vanderbilt and Auburn may show slight growth or even a decline.
 
 # Contributions
-  
+
 Omar Sepulveda: Gathered data sets, completed data section, code used to clean data set, code for the visuals, and completed analysis section
 
-Riccardo Gutierrez: Gathered data sets, completed abstract section, contributed to data and analysis sections.
 
