@@ -1,4 +1,4 @@
-# Load cleaned dataset 
+# Load cleaned data set 
 data_set <- readRDS("cleaned_data.RDS")
 
 # Split "Years_From_To" into Start and End 
