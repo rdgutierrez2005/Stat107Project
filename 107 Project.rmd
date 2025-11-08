@@ -122,5 +122,5 @@ For the analysis, we plan to use descriptive statistics and visual models to tra
   
 Omar Sepulveda: Gathered data sets, completed data section, code used to clean data set, code for the visuals, and completed analysis section
 
-Riccardo Gutierrez: Gathered data sets, completed abstract section.
+Riccardo Gutierrez: Gathered data sets, completed abstract section, contributed to data and analysis sections.
 
