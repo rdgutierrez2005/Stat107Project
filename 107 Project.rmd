@@ -10,6 +10,11 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+```{r}
+source("00_requirements.R")
+```
+
 # Abstract
 
 The NCAA SEC is one of the premier conferences in college football from recent years, but how much is each program represented in the draft? We collected our data from Pro-Football-Reference.com and combined each program in the SEC data sets into a singular Excel file and analyzed the data by distinguishing which players came from which college program, seeing if the player was drafted, then drafted within the years 2011-2025. 
