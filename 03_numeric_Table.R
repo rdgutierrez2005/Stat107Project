@@ -31,5 +31,17 @@ college_summary_wide <- college_summary %>%
               values_fill = 0) %>%
   arrange(School)
 
+# After creating college_summary_wide, add percentage change columns
+college_summary_wide <- college_summary_wide %>%
+  mutate(
+    `Pct Change 2011-2015 to 2016-2020` = ifelse(`2011-2015` == 0, NA, 
+                                                 round(((`2016-2020` - `2011-2015`) / `2011-2015`) * 100, 2)),
+    `Pct Change 2016-2020 to 2021-2025` = ifelse(`2016-2020` == 0, NA, 
+                                                 round(((`2021-2025` - `2016-2020`) / `2016-2020`) * 100, 2))
+  )
+
+# Display the updated summary table
+print(college_summary_wide)
+
 # Display the summary table 
 print(college_summary_wide)
