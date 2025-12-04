@@ -5,6 +5,7 @@ date: "2025-11-06"
 output:
   html_document: default
   pdf_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -53,6 +54,11 @@ source("02_funct_Plots.R")
 # Outcome: A table is generated and printed, providing exact counts for comparison.
 source("03_numeric_Table.R")
 ```
+
+```{r echo= FALSE}
+source("04_percentage_changes.R")
+```
+
 
 These preliminary visualizations support our future analysis by allowing us to compare the number of NFL players produced by various SEC colleges across different time periods. By examining the bar plots, we can identify early patterns of growth or decline in player representation for each school. In later stages of the analysis, we will compare these bar plots in greater detail to draw conclusions about which colleges have shown the most progress or decline in producing NFL players over the years. Further visualizations we discussed implementing include histograms that display the trends for each collegiate program within the conference during the year 2011-2025 time period.
 
