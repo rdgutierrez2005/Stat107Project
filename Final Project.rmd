@@ -3,15 +3,15 @@ title: "Trends in NFL Player Representation from SEC Schools (2011–2025)"
 author: "Omar Sepulveda, Riccardo Gutierrez, Naomi Menard"
 date: "2025-11-06"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r message = FALSE, warning = FALSE, echo = FALSE}
 source("00_requirements.R")
 ```
 
@@ -24,18 +24,18 @@ The NCAA SEC is one of the premier conferences in college football from recent y
 The purpose of this analysis is to highlight which schools in the NCAA SEC (South Eastern Conference) have gained representation in the draft and which programs have lost representation in the draft over the last 15 years. This will answer the question: "How has the number of NFL players from each SEC school changed over time (e.g., 2011–2015, 2016–2020, and 2021–2025), and which schools have shown the most growth or decline in player representation?" This analysis may benefit various groups, including NFL scouts/teams, sports analysts/journalists, or other researchers looking to see which college improved the most. The goal is to understand patterns and changes throughout the 2011 - 2015, 2016-2020, and 2021-2025 time periods.
 
 # Data
-```{r}
+```{r message = FALSE, warning = FALSE, echo = FALSE}
 source("01_funct_DataCleaning.R")
 ```
 The data set used for this analysis, “College_Dataset.xlsx,” contains information on NFL players and the colleges they attended. The data was obtained from Pro-Football-Reference, a reliable source that collects and publishes official NFL statistics, including player backgrounds and school affiliations. Relevant variables include each player’s name, the college they attended, and the range of years they played in the NFL. During the cleaning process, unnecessary columns such as AP1, PB, St, wAV, Ht, and Wt were removed, keeping only the relevant variables. Additionally, since the data set included players from earlier eras, we extracted the starting year from each player’s career range and filtered the data to include only those who began their NFL careers in 2011 or later. The data is entirely real and will not be generated through any randomized simulation.
 
 # Visualization & Analysis
 
-```{r}
+```{r, echo = FALSE}
 source("02_funct_Plots.R")
 ```
 
-```{r}
+```{r, echo = FALSE}
 source("03_numeric_Table.R")
 ```
 
