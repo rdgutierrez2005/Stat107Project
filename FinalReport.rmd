@@ -68,3 +68,5 @@ Omar Sepulveda: Gathered data sets, completed data section, code used to clean d
 Riccardo Gutierrez: Gathered data sets, completed abstract section, and contributed to visualization and analysis section.
 
 Naomi Menard: Completed introduction, gathered data sets, contributed to data, visuals/code , and analysis section. 
+
+lol
