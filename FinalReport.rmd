@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Github Link : https://github.com/rdgutierrez2005/Stat107Project.git
 
-```{r}
+```{r message = FALSE, warning = FALSE}
 # This chunk loads the script to attach necessary packages like tidyverse and gridExtra. 
 # It sets up the environment for data manipulation and visualization.
 # Outcome: Packages are installed and enabled
@@ -30,7 +30,7 @@ The NCAA SEC is one of the premier conferences in college football from recent y
 The purpose of this analysis is to highlight which schools in the NCAA SEC (South Eastern Conference) have gained representation in the draft and which programs have lost representation in the draft over the last 15 years. This will answer the question: "How has the number of NFL players from each SEC school changed over time (e.g., 2011–2015, 2016–2020, and 2021–2025), and which schools have shown the most growth or decline in player representation?" This analysis may benefit various groups, including NFL scouts/teams, sports analysts/journalists, or other researchers looking to see which college improved the most. The goal is to understand patterns and changes throughout the 2011 - 2015, 2016-2020, and 2021-2025 time periods.
 
 # Data
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, echo = FALSE}
 # This chunk sources the data cleaning script to process the raw dataset. 
 # It takes raw data, keeps/renames columns, filters to 2011+, and saves the cleaned data.
 # Outcome: A cleaned dataset is made and saved as "cleaned_data.RDS" for later use.
@@ -41,14 +41,14 @@ The data set used for this analysis, “College_Dataset.xlsx,” contains inform
 
 # Visualization & Analysis
 
-```{r}
+```{r, echo = FALSE}
 # This chunk sources the plotting script to create bar plots. 
 # It makes bar charts for each SEC school, showing player counts across three year gaps.
 # Outcome: Bar plots are made and displayed, visualizing trends in player representation.
 source("02_funct_Plots.R")
 ```
 
-```{r}
+```{r echo = FALSE}
 # This chunk sources the table script to summarize data numerically. 
 # It creates a tibble table with player counts by school and year range.
 # Outcome: A table is generated and printed, providing exact counts for comparison.
