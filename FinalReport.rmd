@@ -39,9 +39,6 @@ The data set used for this analysis, “College_Dataset.xlsx,” contains inform
 
 # Visualization & Analysis
 
-```{r, echo = FALSE}
-source("02_funct_Plots.R")
-```
 
 ```{r, echo = FALSE}
 # This chunk sources the plotting script to create bar plots. 
@@ -70,3 +67,14 @@ Omar Sepulveda: Gathered data sets, completed data section, code used to clean d
 Riccardo Gutierrez: Gathered data sets, completed abstract section, and contributed to visualization and analysis section.
 
 Naomi Menard: Completed introduction, gathered data sets, contributed to data, visuals/code , and analysis section. 
+library(tidyverse)
+
+```{r}
+growth_table <- df %>%
+  group_by(School, period) %>%
+  summarise(count=n(),.groups="drop") %>%
+  pivot_wider(names_from=period, values_from=count) %>%
+  mutate(percent_growth = (2021-2025 - 2011-2015) / 2011-2015 * 100)
+
+growth_table
+```
