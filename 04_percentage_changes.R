@@ -1,38 +1,46 @@
-# Load cleaned data set
+library(dplyr)
+library(tidyr)
+
+# Load cleaned data
 data_set <- readRDS("cleaned_data.RDS")
-# Split "Years_From_To" into Start and End
+
+# Separate Start/End years
 data_set <- data_set %>%
   separate(Years_From_To, into = c("Start", "End"), sep = "-", convert = TRUE, fill = "right") %>%
   mutate(
     Start = as.integer(Start),
-    End = if_else(is.na(End), Start, as.integer(End))
+    End   = if_else(is.na(End), Start, as.integer(End))
   )
-# Define year ranges
-data_set <- data_set %>%
-  mutate(YearRange = case_when(
-    Start >= 2011 & Start <= 2015 ~ "2011-2015",
-    Start >= 2016 & Start <= 2020 ~ "2016-2020",
-    Start >= 2021 & Start <= 2025 ~ "2021-2025",
-    TRUE ~ NA_character_
-  ))
-# Count players per school and year range
-college_summary <- data_set %>%
-  filter(!is.na(YearRange)) %>%
-  group_by(School, YearRange) %>%
+
+# Count players per school per year
+yearly <- data_set %>%
+  group_by(School, Start) %>%
   summarise(Players = n(), .groups = "drop")
-# Pivot to wide format for a readable numeric table
-college_summary_wide <- college_summary %>%
-  pivot_wider(names_from = YearRange,
-              values_from = Players,
-              values_fill = 0) %>%
-  arrange(School)
-# Add percentage change columns
-college_summary_wide <- college_summary_wide %>%
+
+# Create complete year grid (fills missing years with 0)
+yearly_full <- yearly %>%
+  complete(School, Start = full_seq(2011:2025, 1), fill = list(Players = 0))
+
+# Compute safe % change:
+yearly_pct <- yearly_full %>%
+  arrange(School, Start) %>%
+  group_by(School) %>%
   mutate(
-    `2011-2015 to 2016-2020` = ifelse(`2011-2015` == 0, NA,
-                                      round(((`2016-2020` - `2011-2015`) / `2011-2015`) * 100, 2)),
-    `2016-2020 to 2021-2025` = ifelse(`2016-2020` == 0, NA,
-                                      round(((`2021-2025` - `2016-2020`) / `2016-2020`) * 100, 2))
+    pct_change = ifelse(
+      lag(Players) > 0 & Players > 0,
+      round(((Players - lag(Players)) / lag(Players)) * 100, 2),
+      NA  # avoid divide-by-zero or meaningless jumps
+    ),
+    Label = paste0(lag(Start), "→", Start)
   ) %>%
-  select(School, `2011-2015 to 2016-2020`, `2016-2020 to 2021-2025`)
-print(college_summary_wide)
+  filter(!is.na(pct_change))
+
+# Convert to wide percent-change table
+pct_change_wide <- yearly_pct %>%
+  pivot_wider(
+    names_from = Label,
+    values_from = pct_change
+  ) %>%
+  arrange(School)
+
+print(pct_change_wide)

@@ -50,7 +50,7 @@ source("02_funct_Plots.R")
 
 ```{r echo = FALSE}
 # This chunk sources the table script to summarize data numerically. 
-# It creates a tibble table with player counts by school and year range.
+# It creates a tibble table with player counts by school and year 
 # Outcome: A table is generated and printed, providing exact counts for comparison.
 source("03_numeric_Table.R")
 ```

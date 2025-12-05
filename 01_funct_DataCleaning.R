@@ -15,7 +15,7 @@ filtered_data <- data %>%
 
 # Select and rename relevant columns 
 fixed_data <- filtered_data %>%
-  select(Pos, Player, Yrs_Num, Years_Range, School) %>%
+  select(Pos, Player, Yrs_Num, Years_Range, School, start_year) %>%
   rename(
     Position = Pos,
     Years_Num = Yrs_Num,
@@ -24,8 +24,10 @@ fixed_data <- filtered_data %>%
 
 # Clean text formatting
 fixed_data <- fixed_data %>%
-  mutate(Years_From_To = str_replace_all(Years_From_To, "\u2013|\u2014", "-") %>%
-           str_squish())
+  mutate(
+    Years_From_To = str_replace_all(Years_From_To, "\u2013|\u2014", "-") %>%
+      str_squish()
+  )
 
 # Save cleaned data set as an RDS file 
 saveRDS(fixed_data, "cleaned_data.RDS")
