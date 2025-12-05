@@ -4,8 +4,10 @@ packages <- c(
   "gridExtra",   # arrange multiple ggplots
   "knitr",       # knitting tables
   "dplyr",       # tidy data manipulation
-  "tidyr",        # data tidying
-  "tinytex"
+  "tidyr",       # data tidying
+  "tinytex",     # LaTeX distribution for rendering PDFs from RMarkdown
+  "ggplot2",      # grammar of graphics for creating plots
+  "broom"
 )
 
 # Install any missing packages automatically

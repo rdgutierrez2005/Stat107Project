@@ -1,6 +1,3 @@
-library(dplyr)
-library(tidyr)
-
 # Load cleaned data
 data_set <- readRDS("cleaned_data.RDS")
 
@@ -43,4 +40,17 @@ pct_change_wide <- yearly_pct %>%
   ) %>%
   arrange(School)
 
+# Select only the columns needed for a clean wide pivot (one row per school)
+pct_change_wide <- yearly_pct %>%
+  select(School, Label, pct_change) %>%
+  pivot_wider(
+    names_from = Label,
+    values_from = pct_change
+  ) %>%
+  arrange(School)
+
+# Set options to print the full table without truncation
+options(tibble.print_max = Inf, tibble.width = Inf)
+
+# Print the full table
 print(pct_change_wide)

@@ -1,10 +1,10 @@
 ---
 title: "Trends in NFL Player Representation from SEC Schools (2011–2025)"
 author: "Omar Sepulveda, Riccardo Gutierrez, Naomi Menard"
-date: "2025-11-06"
+date: "2025-12-05"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
   word_document: default
 ---
 
@@ -24,7 +24,7 @@ source("00_requirements.R")
 
 The NCAA SEC is one of the premier conferences in college football from recent years, but how much is each program represented in the draft? Our data was collected from Pro-Football-Reference.com which is a database that tracks every NFL players stats, awards, drafting, and teams during college and NFL. Our analysis examines the number of draftees from each SEC football program during 3, 5 year spans (2011-2015, 2016-2020, 2021-2025) and examine comparisons and trends within the graphs to further analyze the popularity and production of each program in terms of outputting NFL talent. The results yielded two common trends within the data that the number of draftees per program within the years 2011 and 2025, either the program yielded a quadratic trend peaking within those late 2010s years or an exponential trend where draft representation only grew from 2011 to 2015.
 
-#1. Introduction
+# Introduction
 
 The NFL is the highest viewed sport in the U.S. as it has been nicknamed Americas sport by the media. In turn college football also exudes major viewer retention and support since the players in college are the future of the NFL, also college students love to support their school. Over the last 15 years there has been one NCAA football conference that has prominently outputted the most NFL talent, that being the South Eastern Conference (SEC). Numerous factors apply when it comes to recruitment, such as head coach prestige, academic prestige, and program prestige, all these factors apply but the most important factor is players drafted. Powerhouses like Alabama and Georgia have remained constant machines when fostering NFL talent, but over recent years LSU and Texas have provided incredible NFL talent. From 2011 to the present year 2025 the SEC has remained a constant pool of NFL talent as they are the programs that every high school football player strives to be apart and compete with the talent within the SEC. The trends for each SEC program in terms of draft representation will differ considering that each program competes against all the other programs within the SEC, therefore more recruits will strive to attend the programs that are winning and the programs that create the most NFL talent. Therefore, if we can analyze the trends for each SEC program in terms of draft representation we can comprehend how each program performed during the period 2011-2025 and which programs grew in draft representation along with which programs withered in draft representation.
 
@@ -36,7 +36,7 @@ The NFL is the highest viewed sport in the U.S. as it has been nicknamed America
 
 source("01_funct_DataCleaning.R")
 ```
-The data set used for this analysis, “College_Dataset.xlsx,” contains information on NFL players and the colleges they attended. The data was obtained from Pro-Football-Reference, a reliable source that collects and publishes official NFL statistics, including player backgrounds and school affiliations. Relevant variables include each player’s name, the college they attended, and the range of years they played in the NFL. During the cleaning process, unnecessary columns such as AP1, PB, St, wAV, Ht, and Wt were removed, keeping only the relevant variables. Additionally, since the data set included players from earlier eras, we extracted the starting year from each player’s career range and filtered the data to include only those who began their NFL careers in 2011 or later. The data is entirely real and will not be generated through any randomized simulation.
+The data set used for this analysis, “College_Dataset.xlsx,” contains 1470 observations of information on NFL players and the colleges they attended, with players who began their NFL careers from 2011 to 2025, spanning 14 years. The data was obtained from Pro-Football-Reference, a reliable source that collects and publishes official NFL statistics, including player backgrounds and school affiliations. Relevant variables include each player’s name, the college they attended, and the range of years they played in the NFL. During the cleaning process, unnecessary columns such as AP1, PB, St, wAV, Ht, and Wt were removed, keeping only the relevant variables, while still keeping the 1470 observations in tact. Additionally, since the data set included players from earlier eras, we extracted the starting year from each player’s career range and filtered the data to include only those who began their NFL careers in 2011 or later. The observations are not evenly distributed across the years, with the number of new players varying annually based on factors such as undrafted signings. The data includes players from 16 unique schools. The data provides the individual starting year for each player, as the yearly data enables more granular and insightful analysis. The data is entirely real and will not be generated through any randomized simulation.
 
 # Visualization & Analysis
 
@@ -73,3 +73,34 @@ Omar Sepulveda: Gathered data sets, completed data section, code used to clean d
 Riccardo Gutierrez: Gathered data sets, completed abstract section, and contributed to visualization and analysis section.
 
 Naomi Menard: Completed introduction, gathered data sets, contributed to data, visuals/code , and analysis section. 
+
+```{r}
+names(data)
+```
+
+```{r}
+counts_by_school <- data %>%
+  group_by(School, start_year) %>%
+  summarise(count = n(), .groups = "drop")
+
+models_by_school <- counts_by_school %>%
+  group_by(School) %>%
+  nest() %>%
+  mutate(
+    model = map(data, ~ glm(count ~ start_year,
+                            family = "poisson",
+                            data = .x)),
+    results = map(model, tidy)   # model coefficients
+  )
+
+walk2(
+  models_by_school$School,
+  models_by_school$model,
+  ~ {
+    cat("\n=====================================\n")
+    cat("Poisson Model for School:", .x, "\n")
+    cat("=====================================\n")
+    print(summary(.y))
+  }
+)
+```
