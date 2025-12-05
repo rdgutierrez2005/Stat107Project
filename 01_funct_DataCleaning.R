@@ -1,33 +1,33 @@
-# Read raw data 
-data <- read_excel("College Dataset.xlsx")
+library(dplyr)
+library(tidyr)
 
-# Rename columns for clarity 
-colnames(data) <- c("Pos", "Player", "College_Stats", "AP1", "PB", "St",
-                    "wAV", "Ht", "Wt", "Yrs_Num", "Years_Range", "School")
+# Load cleaned dataset
+data_set <- readRDS("cleaned_data.RDS")
 
-# Extract start year from the Years_Range column 
-data <- data %>%
-  mutate(start_year = as.integer(sub("-.*", "", Years_Range)))
-
-# Keep only players who started in 2011 or later 
-filtered_data <- data %>%
-  filter(start_year >= 2011)
-
-# Select and rename relevant columns 
-fixed_data <- filtered_data %>%
-  select(Pos, Player, Yrs_Num, Years_Range, School, start_year) %>%
-  rename(
-    Position = Pos,
-    Years_Num = Yrs_Num,
-    Years_From_To = Years_Range
-  )
-
-# Clean text formatting
-fixed_data <- fixed_data %>%
+# Split years
+data_set <- data_set %>%
+  separate(Years_From_To, into = c("Start", "End"), sep = "-", 
+           convert = TRUE, fill = "right") %>%
   mutate(
-    Years_From_To = str_replace_all(Years_From_To, "\u2013|\u2014", "-") %>%
-      str_squish()
+    Start = as.integer(Start),
+    End   = if_else(is.na(End), Start, as.integer(End))
   )
 
-# Save cleaned data set as an RDS file 
-saveRDS(fixed_data, "cleaned_data.RDS")
+# Yearly counts per school
+yearly_summary <- data_set %>%
+  group_by(School, Start) %>%
+  summarise(Players = n(), .groups = "drop")
+
+# Save output
+saveRDS(yearly_summary, "yearly_summary.RDS")
+
+# Wide table
+yearly_summary_wide <- yearly_summary %>%
+  pivot_wider(
+    names_from = Start,
+    values_from = Players,
+    values_fill = 0
+  ) %>%
+  arrange(School)
+
+saveRDS(yearly_summary_wide, "yearly_summary_wide.RDS")
