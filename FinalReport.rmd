@@ -22,7 +22,7 @@ source("00_requirements.R")
 
 # Abstract
 
-The NCAA SEC is one of the premier conferences in college football from recent years, but how much is each program represented in the draft? Our data was collected from Pro-Football-Reference.com which is a database that tracks every NFL players stats, awards, drafting, and teams during college and NFL. Our analysis examines the number of draftees from each SEC football program during 3, 5 year spans (2011-2015, 2016-2020, 2021-2025) and examine comparisons and trends within the graphs to further analyze the popularity and production of each program in terms of outputting NFL talent. The results yielded two common trends within the data that the number of draftees per program within the years 2011 and 2025, either the program yielded a quadratic regression or an exponential regression. 
+The NCAA SEC is one of the premier conferences in college football from recent years, but how much is each program represented in the draft? Our data was collected from Pro-Football-Reference.com which is a database that tracks every NFL players stats, awards, drafting, and teams during college and NFL. Our analysis examines the number of draftees from each SEC football program during 3, 5 year spans (2011-2015, 2016-2020, 2021-2025) and examine comparisons and trends within the graphs to further analyze the popularity and production of each program in terms of outputting NFL talent. The results yielded two common trends within the data that the number of draftees per program within the years 2011 and 2025, either the program yielded a quadratic trend peaking within those late 2010s years or an exponential trend where draft representation only grew from 2011 to 2015.. 
 
 #1. Introduction
 
