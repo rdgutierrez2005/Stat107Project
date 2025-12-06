@@ -61,8 +61,9 @@ source("04_percentage_changes.R")
 ```{r echo= FALSE}
 source("05_percent_map.R")
 ```
+The heat map displays the year-to-year percentage change in NFL draft selections for each SEC program from 2011 to 2025. Each tile represents how a school’s draft output changed compared to the previous year. Blue shades indicate positive growth in drafted players, red shades indicate a decline, and white represents little or no change. This visualization makes it easy to compare trends both across time and between schools, revealing programs with consistent improvement, sudden drops, or highly variable draft production. While some individual year-to-year jumps may appear large,especially when starting from a low number of drafted players,the overall long-term trend is more important. For example, Ole Miss shows very few red areas and more blue or white regions, suggesting relatively steady or improving draft representation over the 15-year period. It is important to note that the concentration or intensity of colors is less significant than identifying which programs display the least amount of red, indicating greater consistency or growth.
 
-These preliminary visualizations support our future analysis by allowing us to compare the number of NFL players produced by various SEC colleges across different time periods. By examining the bar plots, we can identify early patterns of growth or decline in player representation for each school. In later stages of the analysis, we will compare these bar plots in greater detail to draw conclusions about which colleges have shown the most progress or decline in producing NFL players over the years. Further visualizations we discussed implementing include histograms that display the trends for each collegiate program within the conference during the year 2011-2025 time period.
+
 
 # Analysis
 
@@ -74,7 +75,7 @@ Omar Sepulveda: Gathered data sets, completed data section, code used to clean d
 
 Riccardo Gutierrez: Gathered data sets, completed abstract section, and contributed to visualization and analysis section.
 
-Naomi Menard: Completed introduction, gathered data sets, contributed to data, visuals/code , and analysis section. 
+Naomi Menard: Completed introduction, gathered data sets, contributed to data, visuals/code, analysis sections.
 
 ```{r}
 names(data)
