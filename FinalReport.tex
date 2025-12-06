@@ -1,0 +1,903 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Trends in NFL Player Representation from SEC Schools (2011--2025)},
+  pdfauthor={Omar Sepulveda, Riccardo Gutierrez, Naomi Menard},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Trends in NFL Player Representation from SEC Schools
+(2011--2025)}
+\author{Omar Sepulveda, Riccardo Gutierrez, Naomi Menard}
+\date{2025-12-05}
+
+\begin{document}
+\maketitle
+
+\section{Abstract}\label{abstract}
+
+The NCAA SEC is one of the premier conferences in college football from
+recent years, but how much is each program represented in the draft? Our
+data was collected from Pro-Football-Reference.com, which is a database
+that tracks every NFL player's stats, awards, drafting, and teams during
+college and NFL. Our analysis examines the number of draftees from each
+SEC football program for every individual year from 2011 through 2025
+and compares trends within the graphs to further analyze the popularity
+and production of each program (in terms of outputting NFL talent). The
+results yield two common patterns in the data: either the program shows
+a quadratic trend that peaks in the late 2010s, or an exponential trend
+in which draft representation steadily grows from 2011 onward.
+
+\section{Introduction}\label{introduction}
+
+The NFL is the highest viewed sport in the U.S. as it has been nicknamed
+Americas sport by the media. In turn college football also exudes major
+viewer retention and support since the players in college are the future
+of the NFL, also college students love to support their school. Over the
+last 15 years there has been one NCAA football conference that has
+prominently outputted the most NFL talent, that being the South Eastern
+Conference (SEC). Numerous factors apply when it comes to recruitment,
+such as head coach prestige, academic prestige, and program prestige,
+all these factors apply but the most important factor is players
+drafted. Powerhouses like Alabama and Georgia have remained constant
+machines when fostering NFL talent, but over recent years LSU and Texas
+have provided incredible NFL talent. From 2011 to the present year 2025
+the SEC has remained a constant pool of NFL talent as they are the
+programs that every high school football player strives to be apart and
+compete with the talent within the SEC. The trends for each SEC program
+in terms of draft representation will differ considering that each
+program competes against all the other programs within the SEC,
+therefore more recruits will strive to attend the programs that are
+winning and the programs that create the most NFL talent. Therefore, if
+we can analyze the trends for each SEC program in terms of draft
+representation we can comprehend how each program performed during the
+period 2011-2025 and which programs grew or withered in draft
+representation.
+
+\section{Data}\label{data}
+
+The data set used for this analysis, ``College\_Dataset.xlsx,'' contains
+1470 observations of information on NFL players and the colleges they
+attended, with players who began their NFL careers from 2011 to 2025,
+spanning 14 years. The data was obtained from Pro-Football-Reference, a
+reliable source that collects and publishes official NFL statistics,
+including player backgrounds and school affiliations. Relevant variables
+include each player's name, the college they attended, and the range of
+years they played in the NFL. During the cleaning process, unnecessary
+columns such as AP1, PB, St, wAV, Ht, and Wt were removed, keeping only
+the relevant variables, while still keeping the 1470 observations in
+tact. Additionally, since the data set included players from earlier
+eras, we extracted the starting year from each player's career range and
+filtered the data to include only those who began their NFL careers in
+2011 or later. The observations are not evenly distributed across the
+years, with the number of new players varying annually based on factors
+such as un-drafted signings. The data includes players from 16 unique
+schools. The data provides the individual starting year for each player,
+as the yearly data enables more granular and insightful analysis. The
+data is entirely real and will not be generated through any randomized
+simulation.
+
+\section{Visualization \& Analysis}\label{visualization-analysis}
+
+\includegraphics[trim=1cm]{FinalReport_files/figure-latex/unnamed-chunk-3-1}
+\includegraphics[trim=1cm]{FinalReport_files/figure-latex/unnamed-chunk-3-2}
+\includegraphics[trim=1cm]{FinalReport_files/figure-latex/unnamed-chunk-3-3}
+\includegraphics[trim=1cm]{FinalReport_files/figure-latex/unnamed-chunk-3-4}
+
+Here we have displayed individual bar charts for each SEC school,
+showing the number of players that were selected in the NFL Draft in
+each individual year from 2011 through 2025. Based on first impressions,
+without considering the exact numeric counts, there are clear trends
+indicating which programs increased or decreased in draft representation
+over time. Georgia, Florida, Alabama, South Carolina, Ole Miss, and
+Texas have shown significant growth in draft representation, while many
+of the other SEC programs have displayed either steady or declining
+results across the years.
+
+\begin{verbatim}
+## # A tibble: 237 x 3
+##     School         Start Players
+##     <chr>          <int>   <int>
+##   1 Alabama         2011       6
+##   2 Alabama         2012       7
+##   3 Alabama         2013      11
+##   4 Alabama         2014       7
+##   5 Alabama         2015       9
+##   6 Alabama         2016       7
+##   7 Alabama         2017      13
+##   8 Alabama         2018      15
+##   9 Alabama         2019      13
+##  10 Alabama         2020      14
+##  11 Alabama         2021      12
+##  12 Alabama         2022       8
+##  13 Alabama         2023      14
+##  14 Alabama         2024      13
+##  15 Alabama         2025      12
+##  16 Arkansas        2011       1
+##  17 Arkansas        2012       7
+##  18 Arkansas        2013       5
+##  19 Arkansas        2014       4
+##  20 Arkansas        2015       6
+##  21 Arkansas        2016       6
+##  22 Arkansas        2017       6
+##  23 Arkansas        2018       4
+##  24 Arkansas        2019       4
+##  25 Arkansas        2020       5
+##  26 Arkansas        2021       4
+##  27 Arkansas        2022       4
+##  28 Arkansas        2023       2
+##  29 Arkansas        2024       5
+##  30 Arkansas        2025       3
+##  31 Auburn          2011       8
+##  32 Auburn          2012       2
+##  33 Auburn          2013       3
+##  34 Auburn          2014       7
+##  35 Auburn          2015      10
+##  36 Auburn          2016       9
+##  37 Auburn          2017       5
+##  38 Auburn          2018       8
+##  39 Auburn          2019       7
+##  40 Auburn          2020       7
+##  41 Auburn          2021       7
+##  42 Auburn          2022       3
+##  43 Auburn          2023       7
+##  44 Auburn          2024       5
+##  45 Auburn          2025       6
+##  46 Florida         2011       8
+##  47 Florida         2012       5
+##  48 Florida         2013      10
+##  49 Florida         2014      11
+##  50 Florida         2015      11
+##  51 Florida         2016      13
+##  52 Florida         2017      10
+##  53 Florida         2018       7
+##  54 Florida         2019       8
+##  55 Florida         2020      10
+##  56 Florida         2021      11
+##  57 Florida         2022       7
+##  58 Florida         2023       7
+##  59 Florida         2024       6
+##  60 Florida         2025      12
+##  61 Georgia         2011      10
+##  62 Georgia         2012       7
+##  63 Georgia         2013      10
+##  64 Georgia         2014       1
+##  65 Georgia         2015       8
+##  66 Georgia         2016       6
+##  67 Georgia         2017       3
+##  68 Georgia         2018       6
+##  69 Georgia         2019       7
+##  70 Georgia         2020      16
+##  71 Georgia         2021      13
+##  72 Georgia         2022      16
+##  73 Georgia         2023      16
+##  74 Georgia         2024      12
+##  75 Georgia         2025      17
+##  76 Kentucky        2011       1
+##  77 Kentucky        2012       3
+##  78 Kentucky        2013       1
+##  79 Kentucky        2014       2
+##  80 Kentucky        2015       3
+##  81 Kentucky        2016       1
+##  82 Kentucky        2019       4
+##  83 Kentucky        2020       4
+##  84 Kentucky        2021       7
+##  85 Kentucky        2022       8
+##  86 Kentucky        2023       3
+##  87 Kentucky        2024       6
+##  88 Kentucky        2025       3
+##  89 LSU             2011       8
+##  90 LSU             2012       6
+##  91 LSU             2013       9
+##  92 LSU             2014      13
+##  93 LSU             2015       7
+##  94 LSU             2016       6
+##  95 LSU             2017      11
+##  96 LSU             2018      10
+##  97 LSU             2019       6
+##  98 LSU             2020      15
+##  99 LSU             2021      11
+## 100 LSU             2022       8
+## 101 LSU             2023      12
+## 102 LSU             2024      10
+## 103 LSU             2025       6
+## 104 Mississippi St  2011       4
+## 105 Mississippi St  2012       3
+## 106 Mississippi St  2013       4
+## 107 Mississippi St  2014       3
+## 108 Mississippi St  2015       5
+## 109 Mississippi St  2016       3
+## 110 Mississippi St  2018       7
+## 111 Mississippi St  2019       6
+## 112 Mississippi St  2020       8
+## 113 Mississippi St  2021       2
+## 114 Mississippi St  2022       5
+## 115 Mississippi St  2023       4
+## 116 Mississippi St  2024       5
+## 117 Mississippi St  2025       1
+## 118 Missouri        2011       5
+## 119 Missouri        2012       4
+## 120 Missouri        2013       2
+## 121 Missouri        2014       4
+## 122 Missouri        2015       5
+## 123 Missouri        2016       3
+## 124 Missouri        2017       4
+## 125 Missouri        2018       1
+## 126 Missouri        2019       2
+## 127 Missouri        2020       7
+## 128 Missouri        2021       5
+## 129 Missouri        2022       4
+## 130 Missouri        2023       1
+## 131 Missouri        2024       9
+## 132 Missouri        2025       4
+## 133 Oklahoma        2011       5
+## 134 Oklahoma        2012       7
+## 135 Oklahoma        2013       4
+## 136 Oklahoma        2014       9
+## 137 Oklahoma        2015       9
+## 138 Oklahoma        2016       3
+## 139 Oklahoma        2017       6
+## 140 Oklahoma        2018       4
+## 141 Oklahoma        2019      10
+## 142 Oklahoma        2020       7
+## 143 Oklahoma        2021       6
+## 144 Oklahoma        2022       7
+## 145 Oklahoma        2023       6
+## 146 Oklahoma        2024       9
+## 147 Oklahoma        2025       3
+## 148 Ole Miss        2011       5
+## 149 Ole Miss        2012       3
+## 150 Ole Miss        2013       1
+## 151 Ole Miss        2014       1
+## 152 Ole Miss        2015       1
+## 153 Ole Miss        2016       6
+## 154 Ole Miss        2017       6
+## 155 Ole Miss        2018       6
+## 156 Ole Miss        2019       6
+## 157 Ole Miss        2020       6
+## 158 Ole Miss        2021       3
+## 159 Ole Miss        2022       8
+## 160 Ole Miss        2023       9
+## 161 Ole Miss        2024       6
+## 162 Ole Miss        2025      12
+## 163 South Carolina  2011       4
+## 164 South Carolina  2012       8
+## 165 South Carolina  2013       7
+## 166 South Carolina  2014       5
+## 167 South Carolina  2015       3
+## 168 South Carolina  2016       5
+## 169 South Carolina  2017       2
+## 170 South Carolina  2018       4
+## 171 South Carolina  2019       5
+## 172 South Carolina  2020       7
+## 173 South Carolina  2021       7
+## 174 South Carolina  2022       5
+## 175 South Carolina  2023       7
+## 176 South Carolina  2024       7
+## 177 South Carolina  2025      13
+## 178 Tennessee       2011       5
+## 179 Tennessee       2012       1
+## 180 Tennessee       2013       5
+## 181 Tennessee       2014       6
+## 182 Tennessee       2015       3
+## 183 Tennessee       2016       3
+## 184 Tennessee       2017       8
+## 185 Tennessee       2018       7
+## 186 Tennessee       2019       3
+## 187 Tennessee       2020       3
+## 188 Tennessee       2021       7
+## 189 Tennessee       2022       9
+## 190 Tennessee       2023       8
+## 191 Tennessee       2024       9
+## 192 Tennessee       2025       7
+## 193 Texas           2011       7
+## 194 Texas           2012       4
+## 195 Texas           2013       5
+## 196 Texas           2014       4
+## 197 Texas           2015       5
+## 198 Texas           2016       3
+## 199 Texas           2017       5
+## 200 Texas           2018       6
+## 201 Texas           2019       5
+## 202 Texas           2020       7
+## 203 Texas           2021       6
+## 204 Texas           2022       5
+## 205 Texas           2023       5
+## 206 Texas           2024      13
+## 207 Texas           2025      12
+## 208 Texas A&M       2011       1
+## 209 Texas A&M       2012       7
+## 210 Texas A&M       2013       4
+## 211 Texas A&M       2014       7
+## 212 Texas A&M       2015       4
+## 213 Texas A&M       2016       4
+## 214 Texas A&M       2017       6
+## 215 Texas A&M       2018       6
+## 216 Texas A&M       2019       9
+## 217 Texas A&M       2020       5
+## 218 Texas A&M       2021       6
+## 219 Texas A&M       2022       6
+## 220 Texas A&M       2023       6
+## 221 Texas A&M       2024       7
+## 222 Texas A&M       2025       6
+## 223 Vanderbilt      2011       1
+## 224 Vanderbilt      2012       3
+## 225 Vanderbilt      2013       1
+## 226 Vanderbilt      2014       4
+## 227 Vanderbilt      2015       2
+## 228 Vanderbilt      2016       2
+## 229 Vanderbilt      2017       3
+## 230 Vanderbilt      2018       4
+## 231 Vanderbilt      2019       4
+## 232 Vanderbilt      2020       2
+## 233 Vanderbilt      2021       3
+## 234 Vanderbilt      2022       1
+## 235 Vanderbilt      2023       1
+## 236 Vanderbilt      2024       6
+## 237 Vanderbilt      2025       1
+\end{verbatim}
+
+The numeric table provides a detailed yearly breakdown of the number of
+drafted players from each SEC school between 2011 and 2025. Each row
+represents a school, while the ``Start'' column corresponds to a
+specific draft year. The ``Players'' values indicate exactly how many
+players that program contributed to the NFL Draft in that given year.
+Years with no drafted players are represented as zeros, ensuring a
+complete and consistent comparison across all schools. This table
+presents the raw counts directly, making it useful for understanding
+absolute draft contributions and for comparing overall volume across
+programs over the entire 15-year span.
+
+\begin{verbatim}
+## # A tibble: 16 x 15
+## # Groups:   School [16]
+##    School         `2011→2012` `2012→2013` `2013→2014` `2014→2015` `2015→2016`
+##    <chr>                <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
+##  1 Alabama               16.7        57.1       -36.4        28.6       -22.2
+##  2 Arkansas             600         -28.6       -20          50           0  
+##  3 Auburn               -75          50         133.         42.9       -10  
+##  4 Florida              -37.5       100          10           0          18.2
+##  5 Georgia              -30          42.9       -90         700         -25  
+##  6 Kentucky             200         -66.7       100          50         -66.7
+##  7 LSU                  -25          50          44.4       -46.2       -14.3
+##  8 Mississippi St       -25          33.3       -25          66.7       -40  
+##  9 Missouri             -20         -50         100          25         -40  
+## 10 Oklahoma              40         -42.9       125           0         -66.7
+## 11 Ole Miss             -40         -66.7         0           0         500  
+## 12 South Carolina       100         -12.5       -28.6       -40          66.7
+## 13 Tennessee            -80         400          20         -50           0  
+## 14 Texas                -42.9        25         -20          25         -40  
+## 15 Texas A&M            600         -42.9        75         -42.9         0  
+## 16 Vanderbilt           200         -66.7       300         -50           0  
+##    `2016→2017` `2017→2018` `2018→2019` `2019→2020` `2020→2021` `2021→2022`
+##          <dbl>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
+##  1        85.7       15.4        -13.3        7.69       -14.3       -33.3
+##  2         0        -33.3          0         25          -20           0  
+##  3       -44.4       60          -12.5        0            0         -57.1
+##  4       -23.1      -30           14.3       25           10         -36.4
+##  5       -50        100           16.7      129.         -18.8        23.1
+##  6        NA         NA           NA          0           75          14.3
+##  7        83.3       -9.09       -40        150          -26.7       -27.3
+##  8        NA         NA          -14.3       33.3        -75         150  
+##  9        33.3      -75          100        250          -28.6       -20  
+## 10       100        -33.3        150        -30          -14.3        16.7
+## 11         0          0            0          0          -50         167. 
+## 12       -60        100           25         40            0         -28.6
+## 13       167.       -12.5        -57.1        0          133.         28.6
+## 14        66.7       20          -16.7       40          -14.3       -16.7
+## 15        50          0           50        -44.4         20           0  
+## 16        50         33.3          0        -50           50         -66.7
+##    `2022→2023` `2023→2024` `2024→2025`
+##          <dbl>       <dbl>       <dbl>
+##  1        75         -7.14       -7.69
+##  2       -50        150         -40   
+##  3       133.       -28.6        20   
+##  4         0        -14.3       100   
+##  5         0        -25          41.7 
+##  6       -62.5      100         -50   
+##  7        50        -16.7       -40   
+##  8       -20         25         -80   
+##  9       -75        800         -55.6 
+## 10       -14.3       50         -66.7 
+## 11        12.5      -33.3       100   
+## 12        40          0          85.7 
+## 13       -11.1       12.5       -22.2 
+## 14         0        160          -7.69
+## 15         0         16.7       -14.3 
+## 16         0        500         -83.3
+\end{verbatim}
+
+\includegraphics[trim=1cm]{FinalReport_files/figure-latex/unnamed-chunk-6-1}
+The heat map displays the year-to-year percentage change in NFL draft
+selections for each SEC program from 2011 to 2025. Each tile represents
+how a school's draft output changed compared to the previous year. Blue
+shades indicate positive growth in drafted players, red shades indicate
+a decline, and white represents little or no change. This visualization
+makes it easy to compare trends both across time and between schools,
+revealing programs with consistent improvement, sudden drops, or highly
+variable draft production. While some individual year-to-year jumps may
+appear large,especially when starting from a low number of drafted
+players,the overall long-term trend is more important. For example, Ole
+Miss shows very few red areas and more blue or white regions, suggesting
+relatively steady or improving draft representation over the 15-year
+period. It is important to note that the concentration or intensity of
+colors is less significant than identifying which programs display the
+least amount of red, indicating greater consistency or growth.
+
+\begin{verbatim}
+## 
+## =====================================
+## Poisson Model for School: Alabama 
+## =====================================
+## 
+## Call:
+## glm(formula = count ~ start_year, family = "poisson", data = .x)
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(>|z|)  
+## (Intercept) -78.70693   37.15994  -2.118   0.0342 *
+## start_year    0.04017    0.01841   2.182   0.0291 *
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 12.9544  on 14  degrees of freedom
+## Residual deviance:  8.1484  on 13  degrees of freedom
+## AIC: 74.926
+## 
+## Number of Fisher Scoring iterations: 4
+## 
+## 
+## =====================================
+## Poisson Model for School: Arkansas 
+## =====================================
+## 
+## Call:
+## glm(formula = count ~ start_year, family = "poisson", data = .x)
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(>|z|)
+## (Intercept) 39.20161   57.59650   0.681    0.496
+## start_year  -0.01869    0.02855  -0.655    0.513
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 9.2735  on 14  degrees of freedom
+## Residual deviance: 8.8438  on 13  degrees of freedom
+## AIC: 62
+## 
+## Number of Fisher Scoring iterations: 4
+## 
+## 
+## =====================================
+## Poisson Model for School: Auburn 
+## =====================================
+## 
+## Call:
+## glm(formula = count ~ start_year, family = "poisson", data = .x)
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(>|z|)
+## (Intercept)  5.28548   48.17515   0.110    0.913
+## start_year  -0.00171    0.02387  -0.072    0.943
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 12.977  on 14  degrees of freedom
+## Residual deviance: 12.972  on 13  degrees of freedom
+## AIC: 71.313
+## 
+## Number of Fisher Scoring iterations: 4
+## 
+## 
+## =====================================
+## Poisson Model for School: Florida 
+## =====================================
+## 
+## Call:
+## glm(formula = count ~ start_year, family = "poisson", data = .x)
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(>|z|)
+## (Intercept)  6.17915   40.05169   0.154    0.877
+## start_year  -0.00197    0.01985  -0.099    0.921
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 8.9560  on 14  degrees of freedom
+## Residual deviance: 8.9462  on 13  degrees of freedom
+## AIC: 73.36
+## 
+## Number of Fisher Scoring iterations: 4
+## 
+## 
+## =====================================
+## Poisson Model for School: Georgia 
+## =====================================
+## 
+## Call:
+## glm(formula = count ~ start_year, family = "poisson", data = .x)
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(>|z|)    
+## (Intercept) -153.05739   39.70222  -3.855 0.000116 ***
+## start_year     0.07695    0.01966   3.914 9.07e-05 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 40.686  on 14  degrees of freedom
+## Residual deviance: 24.855  on 13  degrees of freedom
+## AIC: 88.325
+## 
+## Number of Fisher Scoring iterations: 5
+## 
+## 
+## =====================================
+## Poisson Model for School: Kentucky 
+## =====================================
+## 
+## Call:
+## glm(formula = count ~ start_year, family = "poisson", data = .x)
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(>|z|)   
+## (Intercept) -180.33008   68.94369  -2.616  0.00891 **
+## start_year     0.08994    0.03413   2.635  0.00841 **
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 17.0752  on 12  degrees of freedom
+## Residual deviance:  9.6551  on 11  degrees of freedom
+## AIC: 52.171
+## 
+## Number of Fisher Scoring iterations: 4
+## 
+## 
+## =====================================
+## Poisson Model for School: LSU 
+## =====================================
+## 
+## Call:
+## glm(formula = count ~ start_year, family = "poisson", data = .x)
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(>|z|)
+## (Intercept) -21.29563   39.79504  -0.535    0.593
+## start_year    0.01165    0.01972   0.591    0.555
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 12.018  on 14  degrees of freedom
+## Residual deviance: 11.668  on 13  degrees of freedom
+## AIC: 76.161
+## 
+## Number of Fisher Scoring iterations: 4
+## 
+## 
+## =====================================
+## Poisson Model for School: Mississippi St 
+## =====================================
+## 
+## Call:
+## glm(formula = count ~ start_year, family = "poisson", data = .x)
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(>|z|)
+## (Intercept) -1.439230  58.379064  -0.025     0.98
+## start_year   0.001434   0.028928   0.050     0.96
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 11.482  on 13  degrees of freedom
+## Residual deviance: 11.480  on 12  degrees of freedom
+## AIC: 60.711
+## 
+## Number of Fisher Scoring iterations: 5
+## 
+## 
+## =====================================
+## Poisson Model for School: Missouri 
+## =====================================
+## 
+## Call:
+## glm(formula = count ~ start_year, family = "poisson", data = .x)
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(>|z|)
+## (Intercept) -41.93586   60.46835  -0.694    0.488
+## start_year    0.02147    0.02996   0.717    0.474
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 16.309  on 14  degrees of freedom
+## Residual deviance: 15.794  on 13  degrees of freedom
+## AIC: 66.646
+## 
+## Number of Fisher Scoring iterations: 5
+## 
+## 
+## =====================================
+## Poisson Model for School: Oklahoma 
+## =====================================
+## 
+## Call:
+## glm(formula = count ~ start_year, family = "poisson", data = .x)
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(>|z|)
+## (Intercept) -1.568147  47.922607  -0.033    0.974
+## start_year   0.001692   0.023747   0.071    0.943
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 11.685  on 14  degrees of freedom
+## Residual deviance: 11.680  on 13  degrees of freedom
+## AIC: 70.388
+## 
+## Number of Fisher Scoring iterations: 4
+## 
+## 
+## =====================================
+## Poisson Model for School: Ole Miss 
+## =====================================
+## 
+## Call:
+## glm(formula = count ~ start_year, family = "poisson", data = .x)
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(>|z|)    
+## (Intercept) -198.40776   55.50177  -3.575 0.000350 ***
+## start_year     0.09910    0.02748   3.606 0.000311 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 28.242  on 14  degrees of freedom
+## Residual deviance: 14.520  on 13  degrees of freedom
+## AIC: 68.257
+## 
+## Number of Fisher Scoring iterations: 5
+## 
+## 
+## =====================================
+## Poisson Model for School: South Carolina 
+## =====================================
+## 
+## Call:
+## glm(formula = count ~ start_year, family = "poisson", data = .x)
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(>|z|)  
+## (Intercept) -91.29226   50.12543  -1.821   0.0686 .
+## start_year    0.04611    0.02483   1.857   0.0633 .
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 15.152  on 14  degrees of freedom
+## Residual deviance: 11.661  on 13  degrees of freedom
+## AIC: 69.112
+## 
+## Number of Fisher Scoring iterations: 4
+## 
+## 
+## =====================================
+## Poisson Model for School: Tennessee 
+## =====================================
+## 
+## Call:
+## glm(formula = count ~ start_year, family = "poisson", data = .x)
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(>|z|)  
+## (Intercept) -123.64827   52.10019  -2.373   0.0176 *
+## start_year     0.06211    0.02580   2.407   0.0161 *
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 18.002  on 14  degrees of freedom
+## Residual deviance: 12.083  on 13  degrees of freedom
+## AIC: 68.075
+## 
+## Number of Fisher Scoring iterations: 4
+## 
+## 
+## =====================================
+## Poisson Model for School: Texas 
+## =====================================
+## 
+## Call:
+## glm(formula = count ~ start_year, family = "poisson", data = .x)
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(>|z|)  
+## (Intercept) -122.15516   49.75994  -2.455   0.0141 *
+## start_year     0.06141    0.02464   2.492   0.0127 *
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 15.4250  on 14  degrees of freedom
+## Residual deviance:  9.0827  on 13  degrees of freedom
+## AIC: 67.172
+## 
+## Number of Fisher Scoring iterations: 4
+## 
+## 
+## =====================================
+## Poisson Model for School: Texas A&M 
+## =====================================
+## 
+## Call:
+## glm(formula = count ~ start_year, family = "poisson", data = .x)
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(>|z|)
+## (Intercept) -65.49009   51.29694  -1.277    0.202
+## start_year    0.03330    0.02541   1.310    0.190
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 10.2256  on 14  degrees of freedom
+## Residual deviance:  8.4975  on 13  degrees of freedom
+## AIC: 65.196
+## 
+## Number of Fisher Scoring iterations: 4
+## 
+## 
+## =====================================
+## Poisson Model for School: Vanderbilt 
+## =====================================
+## 
+## Call:
+## glm(formula = count ~ start_year, family = "poisson", data = .x)
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(>|z|)
+## (Intercept) -27.54289   75.86504  -0.363    0.717
+## start_year    0.01411    0.03759   0.375    0.707
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 12.220  on 14  degrees of freedom
+## Residual deviance: 12.079  on 13  degrees of freedom
+## AIC: 56.351
+## 
+## Number of Fisher Scoring iterations: 5
+\end{verbatim}
+
+\section{Analysis}\label{analysis}
+
+For the analysis, we plan to use descriptive statistics and visual
+models to track changes in the number of NFL players from each SEC
+school over the three time periods. We'll look at the overall trend for
+each school using a simple linear regression, which will help show
+whether the number of NFL players from that school is going up or down
+over time. We'll also use percentage change calculations to measure
+growth rates and rank the schools based on overall gains or declines.
+These methods should make it clear which schools have built a stronger
+NFL presence over time. We expect that powerhouse programs like Alabama
+and Georgia will show a steady growth, while schools like Vanderbilt and
+Auburn may show slight growth or even a decline. For further analysis
+discussing the histograms hopefully the year by year displays for each
+collegiate program in the conference will further contribute to our
+theory of steady growth for the elite programs while the lesser known
+programs won't display such trends. We expect to find that most if not
+all programs within the conference will display some form of growth
+within the 2011-2025 time period and then a variation of growth and
+decay during the covid year as not all programs held the same appeal
+during the pandemic. With big name schools such as Alabama, Georgia and
+Texas will display steady growth and the values will remain relatively
+high compared to lesser known schools such as Auburn and Vanderbilt.
+
+\section{Conclusion}\label{conclusion}
+
+\includegraphics[trim=1cm]{FinalReport_files/figure-latex/unnamed-chunk-8-1}
+
+Our analysis of NFL player representation from SEC schools between 2011
+and 2025 reveals several major trends. First, the conference as a whole
+shows a steady increase in total NFL players over time, with the
+increase accelerating after 2018. Georgia, Texas, Alabama, Tennessee,
+and Ole Miss show the strongest growth, each demonstrating statistically
+significant positive year-to-year trends supported by their Poisson
+regression coefficients. Georgia, in particular, exhibits the steepest
+upward trend, with draft representation nearly doubling across the time
+period.
+
+On the other hand, schools such as Vanderbilt, Mississippi State, and
+Missouri show weak or inconsistent growth, with several periods of
+decline. The COVID-19 years (2020--2021) produced noticeable
+irregularities in many programs due to changes in eligibility and player
+decisions, but the long-term trajectories for powerhouse programs remain
+strongly positive.
+
+Overall, our results demonstrate that the SEC continues to strengthen
+its NFL pipeline. The growth in talent production is not evenly
+distributed, as it is concentrated in dominant programs with strong
+recruiting, coaching stability, and national exposure. These findings
+highlight increasing inequality within the conference and reinforce the
+SEC's reputation as the premier producer of NFL talent.
+
+\section{Contributions}\label{contributions}
+
+Omar Sepulveda: Gathered data sets, completed data section, code used to
+clean data set, code for the visuals, completed analysis section, and
+wrote step by step process in README.md
+
+Riccardo Gutierrez: Gathered data sets, completed abstract section, and
+contributed to visualization and analysis section.
+
+Naomi Menard: Completed introduction, gathered data sets, contributed to
+data, visuals/code, analysis sections. Created descriptions for visuals.
+
+\includegraphics[trim=1cm]{FinalReport_files/figure-latex/unnamed-chunk-9-1}
+
+\end{document}

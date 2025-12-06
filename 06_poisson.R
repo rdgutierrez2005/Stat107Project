@@ -1,4 +1,4 @@
-counts_by_school <- data %>%
+counts_by_school <- data_set %>%
   group_by(School, start_year) %>%
   summarise(count = n(), .groups = "drop")
 

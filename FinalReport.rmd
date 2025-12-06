@@ -3,13 +3,22 @@ title: "Trends in NFL Player Representation from SEC Schools (2011–2025)"
 author: "Omar Sepulveda, Riccardo Gutierrez, Naomi Menard"
 date: "2025-12-05"
 output:
-  pdf_document: default
-  html_document: default
-  word_document: default
+  pdf_document:
+    fig_crop: true
+    fig_caption: true
+    keep_tex: false
+    latex_engine: xelatex
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.height = 4,
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  out.extra = 'trim=1cm'
+)
 ```
 
 ```{r message = FALSE, warning = FALSE, echo = FALSE}
@@ -36,11 +45,9 @@ The NFL is the highest viewed sport in the U.S. as it has been nicknamed America
 
 source("01_funct_DataCleaning.R")
 ```
-The data set used for this analysis, “College_Dataset.xlsx,” contains 1470 observations of information on NFL players and the colleges they attended, with players who began their NFL careers from 2011 to 2025, spanning 14 years. The data was obtained from Pro-Football-Reference, a reliable source that collects and publishes official NFL statistics, including player backgrounds and school affiliations. Relevant variables include each player’s name, the college they attended, and the range of years they played in the NFL. During the cleaning process, unnecessary columns such as AP1, PB, St, wAV, Ht, and Wt were removed, keeping only the relevant variables, while still keeping the 1470 observations in tact. Additionally, since the data set included players from earlier eras, we extracted the starting year from each player’s career range and filtered the data to include only those who began their NFL careers in 2011 or later. The observations are not evenly distributed across the years, with the number of new players varying annually based on factors such as undrafted signings. The data includes players from 16 unique schools. The data provides the individual starting year for each player, as the yearly data enables more granular and insightful analysis. The data is entirely real and will not be generated through any randomized simulation.
+The data set used for this analysis, “College_Dataset.xlsx,” contains 1470 observations of information on NFL players and the colleges they attended, with players who began their NFL careers from 2011 to 2025, spanning 14 years. The data was obtained from Pro-Football-Reference, a reliable source that collects and publishes official NFL statistics, including player backgrounds and school affiliations. Relevant variables include each player’s name, the college they attended, and the range of years they played in the NFL. During the cleaning process, unnecessary columns such as AP1, PB, St, wAV, Ht, and Wt were removed, keeping only the relevant variables, while still keeping the 1470 observations in tact. Additionally, since the data set included players from earlier eras, we extracted the starting year from each player’s career range and filtered the data to include only those who began their NFL careers in 2011 or later. The observations are not evenly distributed across the years, with the number of new players varying annually based on factors such as un-drafted signings. The data includes players from 16 unique schools. The data provides the individual starting year for each player, as the yearly data enables more granular and insightful analysis. The data is entirely real and will not be generated through any randomized simulation.
 
 # Visualization & Analysis
-
-
 ```{r, echo = FALSE}
 source("02_funct_Plots.R")
 ```
@@ -65,18 +72,38 @@ source("05_percent_map.R")
 ```
 The heat map displays the year-to-year percentage change in NFL draft selections for each SEC program from 2011 to 2025. Each tile represents how a school’s draft output changed compared to the previous year. Blue shades indicate positive growth in drafted players, red shades indicate a decline, and white represents little or no change. This visualization makes it easy to compare trends both across time and between schools, revealing programs with consistent improvement, sudden drops, or highly variable draft production. While some individual year-to-year jumps may appear large,especially when starting from a low number of drafted players,the overall long-term trend is more important. For example, Ole Miss shows very few red areas and more blue or white regions, suggesting relatively steady or improving draft representation over the 15-year period. It is important to note that the concentration or intensity of colors is less significant than identifying which programs display the least amount of red, indicating greater consistency or growth.
 
-```{r}
-names(data)
-```
-
-```{r}
+```{r echo= FALSE}
 source("06_poisson.R")
 ```
-
 
 # Analysis
 
 For the analysis, we plan to use descriptive statistics and visual models to track changes in the number of NFL players from each SEC school over the three time periods. We'll look at the overall trend for each school using a simple linear regression, which will help show whether the number of NFL players from that school is going up or down over time. We'll also use percentage change calculations to measure growth rates and rank the schools based on overall gains or declines. These methods should make it clear which schools have built a stronger NFL presence over time. We expect that powerhouse programs like Alabama and Georgia will show a steady growth, while schools like Vanderbilt and Auburn may show slight growth or even a decline. For further analysis discussing the histograms hopefully the year by year displays for each collegiate program in the conference will further contribute to our theory of steady growth for the elite programs while the lesser known programs won't display such trends. We expect to find that most if not all programs within the conference will display some form of growth within the 2011-2025 time period and then a variation of growth and decay during the covid year as not all programs held the same appeal during the pandemic. With big name schools such as Alabama, Georgia and Texas will display steady growth and the values will remain relatively high compared to lesser known schools such as Auburn and Vanderbilt.
+
+# Conclusion
+
+```{r echo= FALSE}
+sec_total <- yearly %>%
+  group_by(Start) %>%
+  summarise(TotalPlayers = sum(Players))
+
+ggplot(sec_total, aes(Start, TotalPlayers)) +
+  geom_line(size = 1.3) +
+  geom_point(size = 3) +
+  labs(
+    title = "Total NFL Player Output from SEC (2011–2025)",
+    x = "Year",
+    y = "Total Players"
+  ) +
+  theme_minimal(base_size = 13)
+```
+
+
+Our analysis of NFL player representation from SEC schools between 2011 and 2025 reveals several major trends. First, the conference as a whole shows a steady increase in total NFL players over time, with the increase accelerating after 2018. Georgia, Texas, Alabama, Tennessee, and Ole Miss show the strongest growth, each demonstrating statistically significant positive year-to-year trends supported by their Poisson regression coefficients. Georgia, in particular, exhibits the steepest upward trend, with draft representation nearly doubling across the time period.
+
+On the other hand, schools such as Vanderbilt, Mississippi State, and Missouri show weak or inconsistent growth, with several periods of decline. The COVID-19 years (2020–2021) produced noticeable irregularities in many programs due to changes in eligibility and player decisions, but the long-term trajectories for powerhouse programs remain strongly positive.
+
+Overall, our results demonstrate that the SEC continues to strengthen its NFL pipeline. The growth in talent production is not evenly distributed, as it is concentrated in dominant programs with strong recruiting, coaching stability, and national exposure. These findings highlight increasing inequality within the conference and reinforce the SEC’s reputation as the premier producer of NFL talent.
 
 # Contributions
 
@@ -85,3 +112,22 @@ Omar Sepulveda: Gathered data sets, completed data section, code used to clean d
 Riccardo Gutierrez: Gathered data sets, completed abstract section, and contributed to visualization and analysis section.
 
 Naomi Menard: Completed introduction, gathered data sets, contributed to data, visuals/code, analysis sections. Created descriptions for visuals.
+
+```{r}
+slopes <- yearly %>%
+  group_by(School) %>%
+  do(tidy(lm(Players ~ Start, data = .))) %>%
+  filter(term == "Start") %>%
+  rename(Slope = estimate)
+
+ggplot(slopes, aes(x = reorder(School, Slope), y = Slope)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Slope of Regression Lines (Players per Year)",
+    x = "School",
+    y = "Slope"
+  ) +
+  theme_minimal()
+```
+
