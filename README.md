@@ -45,7 +45,7 @@ This is the main report that sources all required scripts and runs the full anal
 _____________________________________________________________________________________________________________________________________________
 Report Files:
 FinalReport.pdf
-The knitted PDF output of FinalReport.rmd. This is the formatted halfway report, including the title, abstract, introduction, data section, preliminary visualizations (bar plots and tables), and plans for further analysis.
+This file is the final knitted version of the report generated from the RMD. It contains all figures, interpretations, and conclusions for the project.
 _____________________________________________________________________________________________________________________________________________
 Miscellaneous Files:
 .DS_Store:
