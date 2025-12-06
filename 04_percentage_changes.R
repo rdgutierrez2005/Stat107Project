@@ -49,8 +49,4 @@ pct_change_wide <- yearly_pct %>%
   ) %>%
   arrange(School)
 
-# Set options to print the full table without truncation
-options(tibble.print_max = Inf, tibble.width = Inf)
 
-# Print the full table
-print(pct_change_wide)
