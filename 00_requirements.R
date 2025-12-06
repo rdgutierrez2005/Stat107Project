@@ -6,9 +6,9 @@ packages <- c(
   "dplyr",       # tidy data manipulation
   "tidyr",       # data tidying
   "tinytex",     # LaTeX distribution for rendering PDFs from RMarkdown
-  "ggplot2",      # grammar of graphics for creating plots
-  "broom",
-  "purrr"
+  "ggplot2",     # grammar of graphics for creating plots
+  "broom",       # converts model outputs into tidy data frames
+  "purrr"        # functional programming tools for iterating with map()
 )
 
 # Install any missing packages automatically
