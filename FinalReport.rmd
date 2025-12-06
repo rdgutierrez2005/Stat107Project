@@ -30,10 +30,6 @@ The NFL is the highest viewed sport in the U.S. as it has been nicknamed America
 
 # Data
 ```{r message = FALSE, warning = FALSE, echo = FALSE}
-# This chunk sources the data cleaning script to process the raw dataset. 
-# It takes raw data, keeps/renames columns, filters to 2011+, and saves the cleaned data.
-# Outcome: A cleaned dataset is made and saved as "cleaned_data.RDS" for later use.
-
 source("01_funct_DataCleaning.R")
 ```
 The data set used for this analysis, “College_Dataset.xlsx,” contains 1470 observations of information on NFL players and the colleges they attended, with players who began their NFL careers from 2011 to 2025, spanning 14 years. The data was obtained from Pro-Football-Reference, a reliable source that collects and publishes official NFL statistics, including player backgrounds and school affiliations. Relevant variables include each player’s name, the college they attended, and the range of years they played in the NFL. During the cleaning process, unnecessary columns such as AP1, PB, St, wAV, Ht, and Wt were removed, keeping only the relevant variables, while still keeping the 1470 observations in tact. Additionally, since the data set included players from earlier eras, we extracted the starting year from each player’s career range and filtered the data to include only those who began their NFL careers in 2011 or later. The observations are not evenly distributed across the years, with the number of new players varying annually based on factors such as undrafted signings. The data includes players from 16 unique schools. The data provides the individual starting year for each player, as the yearly data enables more granular and insightful analysis. The data is entirely real and will not be generated through any randomized simulation.
@@ -53,26 +49,24 @@ Here we have displayed individual bar charts for each SEC school, showing the nu
 # Outcome: A table is generated and printed, providing exact counts for comparison.
 source("03_numeric_Table.R")
 ```
-
 The numeric table provides a detailed yearly breakdown of the number of drafted players from each SEC school between 2011 and 2025. Each row represents a school, while the "Start" column corresponds to a specific draft year. The "Players" values indicate exactly how many players that program contributed to the NFL Draft in that given year. Years with no drafted players are represented as zeros, ensuring a complete and consistent comparison across all schools. This table presents the raw counts directly, making it useful for understanding absolute draft contributions and for comparing overall volume across programs over the entire 15-year span. 
 
 ```{r echo= FALSE}
 source("04_percentage_changes.R")
 ```
 
-```{r echo= FALSE}
+```{r echo= FALSE }
 source("05_percent_map.R")
 ```
 The heat map displays the year-to-year percentage change in NFL draft selections for each SEC program from 2011 to 2025. Each tile represents how a school’s draft output changed compared to the previous year. Blue shades indicate positive growth in drafted players, red shades indicate a decline, and white represents little or no change. This visualization makes it easy to compare trends both across time and between schools, revealing programs with consistent improvement, sudden drops, or highly variable draft production. While some individual year-to-year jumps may appear large,especially when starting from a low number of drafted players,the overall long-term trend is more important. For example, Ole Miss shows very few red areas and more blue or white regions, suggesting relatively steady or improving draft representation over the 15-year period. It is important to note that the concentration or intensity of colors is less significant than identifying which programs display the least amount of red, indicating greater consistency or growth.
 
-```{r}
-names(data)
-```
-
-```{r}
+```{r echo= FALSE}
 source("06_poisson.R")
 ```
 
+```{r echo =FALSE, fig.width=2, fig.height=2}
+source("07_poisson_visual.R")
+```
 
 # Analysis
 
