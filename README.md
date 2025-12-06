@@ -1,9 +1,9 @@
 Overview:
 This repository contains the files for our STAT 107 final report evaluation on "Trends in NFL Player Representation from SEC Schools (2011–2025)." The project analyzes NFL player data from SEC colleges over the full 2011–2025 period using data cleaning, visualizations, percent-change analysis, Poisson regression modeling, and slope-based rankings to identify long-term trends in player representation. It includes raw and processed data, R code for cleaning and visualization functions, additional scripts for generating regression and ranking outputs, the R Markdown file for the report, and the final knitted PDF.
-________________________________________________________________________________________________________________________________________
+_______________________________________________________________________________________________________________________________________
 File Roles: 
 Below is a description of each file in the repository, grouped by category (data, code, R Markdown, report, and miscellaneous)
-________________________________________________________________________________________________________________________________________
+_______________________________________________________________________________________________________________________________________
 Data Files:
 
 College_Dataset.xlsx: The raw input data file in Excel format, sourced from Pro-Football-Reference.com. It contains information on NFL players, including their names, colleges (focused on SEC schools), career years, positions, and other statistics. This is the starting point for all analysis.
@@ -11,9 +11,15 @@ College_Dataset.xlsx: The raw input data file in Excel format, sourced from Pro-
 cleaned_data.RDS:
 A processed R data file (RDS format) generated during data cleaning. It includes filtered and cleaned player data (e.g., only players starting careers in 2011 or later, with unnecessary columns removed and variables renamed for clarity)
 
+yearly_summary:
+This file contains the summarized counts of drafted players per school for each individual year from 2011 to 2025. It is used as an intermediate dataset that supports several visualizations, including bar charts and regression models.
+
+yearly_summary_wide:
+This file stores the same yearly player counts as yearly_summary, but in a wide format where each school is represented as its own column. It is primarily used for generating visualizations that require matrix-like structures, such as the percent-change heat map.
+
 .RData:
 An R workspace file that may save session data or objects from previous runs (e.g., loaded datasets or variables). Useful for restoring a session, but not essential for reproduction
-________________________________________________________________________________________________________________________________________
+_______________________________________________________________________________________________________________________________________
 Code Files:
 
 00_requirements.R:
@@ -37,17 +43,17 @@ This script fits Poisson regression models for each SEC school to analyze long-t
 07_rankings.R:
 This script calculates and visualizes slope values from the Poisson regression models. It generates the rankings chart in Figure 5 that summarizes long-term school performance.
 
-________________________________________________________________________________________________________________________________________
+_______________________________________________________________________________________________________________________________________
 R Markdown Files:
 
 FinalReport.rmd: 
 This is the main report that sources all required scripts and runs the full analysis pipeline. It compiles the visualizations and written interpretation into a formatted PDF.
-________________________________________________________________________________________________________________________________________
+_______________________________________________________________________________________________________________________________________
 Report Files:
 
 FinalReport.pdf:
 This file is the final knitted version of the report generated from the RMD. It contains all figures, interpretations, and conclusions for the project.
-________________________________________________________________________________________________________________________________________
+_______________________________________________________________________________________________________________________________________
 Miscellaneous Files:
 
 .DS_Store:
@@ -58,7 +64,7 @@ An R history file logs the commands executed in previous sessions (for reference
 
 README.md: 
 This file provides an overview of the project, describes file roles, and includes instructions for reproducing the results.
-________________________________________________________________________________________________________________________________________
+_______________________________________________________________________________________________________________________________________
 To reproduce the results:
 1. Install R and RStudio
 Install the latest versions of R and RStudio on your computer. These programs are required to run the scripts and knit the final report.
