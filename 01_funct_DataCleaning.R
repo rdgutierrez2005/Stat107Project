@@ -1,6 +1,3 @@
-library(dplyr)
-library(tidyr)
-
 # Load cleaned dataset
 data_set <- readRDS("cleaned_data.RDS")
 

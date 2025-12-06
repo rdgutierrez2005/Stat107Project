@@ -77,32 +77,23 @@ Riccardo Gutierrez: Gathered data sets, completed abstract section, and contribu
 Naomi Menard: Completed introduction, gathered data sets, contributed to data, visuals/code , and analysis section. 
 
 ```{r}
-names(data)
+source("06_poisson_model.R")
 ```
 
 ```{r}
-counts_by_school <- data %>%
-  group_by(School, start_year) %>%
-  summarise(count = n(), .groups = "drop")
-
-models_by_school <- counts_by_school %>%
+slopes <- yearly %>%
   group_by(School) %>%
-  nest() %>%
-  mutate(
-    model = map(data, ~ glm(count ~ start_year,
-                            family = "poisson",
-                            data = .x)),
-    results = map(model, tidy)   # model coefficients
-  )
+  do(tidy(lm(Players ~ Start, data = .))) %>%
+  filter(term == "Start") %>%
+  rename(Slope = estimate)
 
-walk2(
-  models_by_school$School,
-  models_by_school$model,
-  ~ {
-    cat("\n=====================================\n")
-    cat("Poisson Model for School:", .x, "\n")
-    cat("=====================================\n")
-    print(summary(.y))
-  }
-)
+ggplot(slopes, aes(x = reorder(School, Slope), y = Slope)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Slope of Regression Lines (Players per Year)",
+    x = "School",
+    y = "Slope"
+  ) +
+  theme_minimal()
 ```

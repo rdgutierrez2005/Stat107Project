@@ -7,7 +7,8 @@ packages <- c(
   "tidyr",       # data tidying
   "tinytex",     # LaTeX distribution for rendering PDFs from RMarkdown
   "ggplot2",      # grammar of graphics for creating plots
-  "broom"
+  "broom",
+  "purrr"
 )
 
 # Install any missing packages automatically

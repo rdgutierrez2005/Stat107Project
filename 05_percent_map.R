@@ -1,7 +1,3 @@
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-
 # Use yearly_pct (must already exist)
 
 heatmap_data <- yearly_pct %>%
@@ -12,9 +8,9 @@ heatmap_data <- yearly_pct %>%
 heatmap <- ggplot(heatmap_data, aes(x = Label, y = School, fill = pct_change)) +
   geom_tile(color = "white") +
   scale_fill_gradient2(
-    low = "red",
-    mid = "white",
-    high = "blue",
+    low = "black",
+    mid = "cyan",
+    high = "purple",
     midpoint = 0,
     name = "% Change"
   ) +
