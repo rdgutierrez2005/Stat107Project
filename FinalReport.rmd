@@ -36,59 +36,47 @@ The data set used for this analysis, “College_Dataset.xlsx,” contains 1470 o
 
 # Visualization & Analysis
 
-
-```{r, echo = FALSE}
-source("02_funct_Plots.R")
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+source("02_total_sec.R")
 ```
 
-Figure 1. Bar chart representation of the number of players drafted per year from 2011-2025. Each graph is incremented by 5, however trends are prevalent in each graph representing the SEC programs.
+Figure 1. A line graph displaying the total number of SEC players drafted into the NFL each year from 2011–2025. Each point on the line represents the collective draft output of all SEC programs in that specific year, showing how the conference as a whole fluctuated in NFL talent production over time.
+
+Compared to the bar charts which break down draft output program by program, this figure gives a complete overview of the SEC draft pipeline as a unified system. The x-axis progresses annually from 2011 to 2025, while the y-axis reflects total player count, allowing for an easy visual interpretation of increases or decreases in total NFL representation across the conference. This graph is important because it establishes the baseline trend for the SEC as a whole before evaluating individual schools in isolation. The general upward movement in total draftees suggests that the SEC has not only maintained its reputation as a dominant recruiting conference but has strengthened it over time, producing more NFL-ready athletes as the years progress. When connected to the later school-specific regressions and percentage-change heat map, this figure provides context showing that even if certain programs declined, the conference as a whole experienced net growth. Thus, Figure 2 reinforces the SEC’s role as the primary NFL talent supplier, while setting the foundation for deeper comparisons across individual programs.
+
+```{r echo = FALSE, fig.width=7, fig.height=4}
+source("03_funct_Plots.R")
+```
+
+Figure 2. Bar chart representation of the number of players drafted per year from 2011-2025. Each graph is incremented by 5, however trends are prevalent in each graph representing the SEC programs.
 
 Here we have displayed individual bar charts for each SEC school, showing the number of players that were selected in the NFL Draft in each individual year from 2011 through 2025. Based on first impressions, without considering the exact numeric counts, there are clear trends indicating which programs increased or decreased in draft representation over time. Georgia, Florida, Alabama, South Carolina, Ole Miss, and Texas have shown significant growth in draft representation, while many of the other SEC programs have displayed either steady or declining results across the years.
 
-```{r echo = FALSE}
-# This chunk sources the table script to summarize data numerically. 
-# It creates a tibble table with player counts by school and year 
-# Outcome: A table is generated and printed, providing exact counts for comparison.
-source("03_numeric_Table.R")
-```
-Figure 2. A numeric table that presents the exact number of draftees per each program for every year from 2011 to 2025.
-
-The numeric table provides a detailed yearly breakdown of the number of drafted players from each SEC school between 2011 and 2025. Each row represents a school, while the "Start" column corresponds to a specific draft year. The "Players" values indicate exactly how many players that program contributed to the NFL Draft in that given year. Years with no drafted players are represented as zeros, ensuring a complete and consistent comparison across all schools. This table presents the raw counts directly, making it useful for understanding absolute draft contributions and for comparing overall volume across programs over the entire 15-year span. 
-
-```{r echo= FALSE}
-source("04_percentage_changes.R")
-```
-
 ```{r echo= FALSE }
-source("05_percent_map.R")
+source("04_percent_map.R")
 ```
 Figure 3. A heat map that covers the year by year percentage change for each SEC program with the darker the color of each box the greater the percentage change present. There are some boxes that are presented as white because there were no draftees during that year, therefore the box is white.
 
-The heat map displays the year-to-year percentage change in NFL draft selections for each SEC program from 2011 to 2025. Each tile represents how a school’s draft output changed compared to the previous year. Blue shades indicate positive growth in drafted players, red shades indicate a decline, and white represents little or no change. This visualization makes it easy to compare trends both across time and between schools, revealing programs with consistent improvement, sudden drops, or highly variable draft production. While some individual year-to-year jumps may appear large,especially when starting from a low number of drafted players,the overall long-term trend is more important. For example, Ole Miss shows very few red areas and more blue or white regions, suggesting relatively steady or improving draft representation over the 15-year period. It is important to note that the concentration or intensity of colors is less significant than identifying which programs display the least amount of red, indicating greater consistency or growth.
-
-```{r echo= FALSE}
-source("06_poisson.R")
-```
+The heat map displays the year-to-year percentage change in NFL draft selections for each SEC program from 2011 to 2025. Each tile represents how a school’s draft output changed compared to the previous year. Blue shades indicate positive growth in drafted players, the orange shades indicate a decline, and white represents little or no change. This visualization makes it easy to compare trends both across time and between schools, revealing programs with consistent improvement, sudden drops, or highly variable draft production. While some individual year-to-year jumps may appear large,especially when starting from a low number of drafted players,the overall long-term trend is more important. For example, Ole Miss shows very few orange areas and more blue or white regions, suggesting relatively steady or improving draft representation over the 15-year period. It is important to note that the concentration or intensity of colors is less significant than identifying which programs display the least amount of orange, indicating greater consistency or growth.
 
 ```{r echo =FALSE, fig.width=2, fig.height=2}
-source("07_poisson_visual.R")
+source("05_poisson_visual.R")
 ```
 Figure 4. A Poisson regression graph that highlights the trend of the number of draftees within each SEC program over the given interval from 2011-2025. Some graphs depict an exponential curve while others depict a more linear curve considering the change in draftees is les drastic compared to others.
 
-These Poisson regression graphs are a greater visual representation of the trends highlighted within the bar graphs from Figure 1. as we can visually see the curvature within each SEC programs change in number of draftees. Teams like Alabama, Georgia, Kentucky, Ole Miss, Tennessee, and Texas are visualized with a more exponential trend because throughout the years these are the teams that have created a winning culture throughout the years, therefore more players are going to these schools and therefore more NFL draft talent is being produced from these programs. Other schools like Arkansas, Auburn, Florida, LSU, Mississippi St., Missouri, Oklahoma, South Carolina, Texas A&M, Vanderbilt all show a more liner trend because even though they aren't the programs that are winning the most, they are in the conference where the most popular, successful teams are competing, therefore they are garnering more exposure to NFL scouts so that they have greater chances to be drafted to an NFL team. However, Arkansas, Auburn, and Florida are all experiencing negative trends, compared to all other programs experiencing positive trends, these are the teams that have suffered the most from the success of the SEC as these teams have produced NFL talent, but there programs have struggled to win and be competitive in the conference leading to less recruitment and therefore less NFL talent. The exponential trends within these graphs highlight a drastic increase in recruitment and NFL draft talent production from schools experiencing this type of trend, inferring that these teams have been the most successful and have seen an increase in NFL draft representation. While teams experiencing more linear trends are inferred to have experience a more steady increase or decrease in NFL draft representation due to either an increase of recruitment and exposure or a decrease in recruitment and exposure. 
+These Poisson regression graphs are a greater visual representation of the trends highlighted within the bar graphs from Figure 2. as we can visually see the curvature within each SEC programs change in number of draftees. Teams like Alabama, Georgia, Kentucky, Ole Miss, Tennessee, and Texas are visualized with a more exponential trend because throughout the years these are the teams that have created a winning culture throughout the years, therefore more players are going to these schools and therefore more NFL draft talent is being produced from these programs. Other schools like Arkansas, Auburn, Florida, LSU, Mississippi St., Missouri, Oklahoma, South Carolina, Texas A&M, Vanderbilt all show a more liner trend because even though they aren't the programs that are winning the most, they are in the conference where the most popular, successful teams are competing, therefore they are garnering more exposure to NFL scouts so that they have greater chances to be drafted to an NFL team. However, Arkansas, Auburn, and Florida are all experiencing negative trends, compared to all other programs experiencing positive trends, these are the teams that have suffered the most from the success of the SEC as these teams have produced NFL talent, but there programs have struggled to win and be competitive in the conference leading to less recruitment and therefore less NFL talent. The exponential trends within these graphs highlight a drastic increase in recruitment and NFL draft talent production from schools experiencing this type of trend, inferring that these teams have been the most successful and have seen an increase in NFL draft representation. While teams experiencing more linear trends are inferred to have experience a more steady increase or decrease in NFL draft representation due to either an increase of recruitment and exposure or a decrease in recruitment and exposure. 
+
+```{r echo=FALSE}
+source("06_rankings.R")
+```
+Figure 5. A summary visualization representing the slope values calculated from each program’s Poisson regression line. Each school is positioned along the y-axis, while the slope value, which measures yearly change in NFL draft output, is displayed along the x-axis.
+
+Programs with positive slopes indicate increasing draft representation over the 2011–2025 period, while negative slopes indicate decline. This figure condenses long-term draft performance into a single comparable metric, highlighting how rapidly or slowly each SEC school is progressing in the production of NFL talent. This figure matters because it transforms the regression curves into measurable numerical growth, making it easier to identify which programs are improving most significantly. Schools such as Georgia, Alabama, Texas, Tennessee, and Ole Miss stand out with steep positive slopes, reinforcing the idea that these programs have expanded considerably as NFL pipelines. In contrast, Arkansas, Auburn, and Florida fall into negative-trend territory, suggesting diminishing recruitment strength, reduced national success, or declining draft exposure. This visualization ties together the findings shown in the other figures by ranking all SEC schools on a growth-based scale, ultimately clarifying which programs are rising to dominance and which are experiencing long-term stagnation or regression.
 
 # Conclusion
 
-Based on the analysis and visualization conducted, it appears that most of the programs presented within the South Eastern Conference (SEC) did experience some form of positive trend, the only outliers being Arkansas, Auburn, and Florida. This notion is supported by the Poisson regression graphs that visualize either some form of exponentially positive trend or some form of linear, positive trend that highlights the increase of NFL draft representation for 13 out of the 16 programs within the SEC. This suggests that the SEC and the winning, competitive culture surrounding the conference has caused some form of increase in NFL draft representation for most of the programs competing within the SEC.
+The results of our analysis illustrate how the SEC has continued to develop as a dominant source of NFL talent from 2011–2025. As shown in Figure 1, the total number of SEC draftees increased over time, reinforcing the idea that the conference as a whole has strengthened rather than plateaued. While most programs show growth, three schools such as Arkansas, Auburn, and Florida stand out for exhibiting a declining trend.
 
-To further analyze the results beyond the trends Figures 1. and 3. highlight the exact jumps in NFL draft representation year by year. The bar graphs and the table highlight the exact jumps in representation on a year by year scale. While the heat map depicts the percentage change in NFL draft representation, not contingent on whether the change is positive or negative, the change just represents the aggregate jump in draft representation. 
+School-specific patterns are highlighted visually through both yearly bar charts (Figure 2) and team-level Poisson regression curves (Figure 4), but the clearest summary of long-run performance comes from Figure 5, which ranks programs by slope. Georgia, Alabama, Texas, Ole Miss, and Tennessee exhibit the strongest positive slopes, suggesting that these programs have become increasingly reliable pipelines for NFL talent. Meanwhile, Arkansas, Auburn, and Florida carry negative slopes, confirming consistent regression in draft output.
 
-In conclusion, based on the analysis presented within the graphs, maps, and tables we can assume that Georgia has experienced the greatest growth in NFL draft representation during the time period 2011-2025. On the other hand Arkansas is the program that has withered the most in NFL draft representation during the time period 2011-2025. To further delve into the data, future analysis can create poisson regression models to obtain the exact numbers that relate to the Poisson regression graphs highlighting the regression lines. Consequently this analysis is not perfect, some further analysis could consider the outlying factors that go into college recruitment and therefore exposure to NFL scouts, such as the history of the programs, along with the NFL talent produced from the programs. Even factors relating to the college or university itself, such as campus culture and academic prestige can all contribute to why a college recruit would choose to committ or transfer to a program within the notorious, competitive, and successful NCAA South Eastern Conference.
-
-# Contribution
-
-Omar Sepulveda: Gathered data sets, completed data section, code used to clean data set, code for the visuals, completed analysis section, and wrote step by step process in README.md
-
-Riccardo Gutierrez: Gathered data sets, completed abstract section, visuals code, contributed to visualization and analysis section, completed Conclusion.
-
-Naomi Menard: Completed introduction, gathered data sets, contributed to data, visuals/code, analysis sections. Created descriptions for visuals.
+Overall, these trends indicate that internal competitiveness within the SEC may amplify success for certain programs while diminishing others. Future research could incorporate predictors such as coaching changes, conference realignment, recruiting rankings, and championship success to better understand why these trajectories differ. Our findings offer a structured look at how NFL talent production has shifted over time, a trend likely to influence recruiting decisions, conference strength, and the professional landscape of football for years to come.
