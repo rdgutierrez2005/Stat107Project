@@ -54,6 +54,8 @@ Here we have displayed individual bar charts for each SEC school, showing the nu
 source("03_numeric_Table.R")
 ```
 
+The numeric table provides a detailed yearly breakdown of the number of drafted players from each SEC school between 2011 and 2025. Each row represents a school, while the "Start" column corresponds to a specific draft year. The "Players" values indicate exactly how many players that program contributed to the NFL Draft in that given year. Years with no drafted players are represented as zeros, ensuring a complete and consistent comparison across all schools. This table presents the raw counts directly, making it useful for understanding absolute draft contributions and for comparing overall volume across programs over the entire 15-year span. 
+
 ```{r echo= FALSE}
 source("04_percentage_changes.R")
 ```
@@ -75,7 +77,7 @@ Omar Sepulveda: Gathered data sets, completed data section, code used to clean d
 
 Riccardo Gutierrez: Gathered data sets, completed abstract section, and contributed to visualization and analysis section.
 
-Naomi Menard: Completed introduction, gathered data sets, contributed to data, visuals/code, analysis sections.
+Naomi Menard: Completed introduction, gathered data sets, contributed to data, visuals/code, analysis sections. Created descriptions for visuals.
 
 ```{r}
 names(data)
