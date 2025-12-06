@@ -22,19 +22,19 @@ This script loads all necessary packages used throughout the project. It must be
 01_funct_DataCleaning.R:
 An R source file containing code (or functions) for data cleaning. It reads the raw Excel data, renames columns, extracts start years, filters to 2011+, selects relevant variables, cleans text formatting, and saves the cleaned data as an RDS file.
 
-02_total_sec.R
+02_total_sec.R:
 This script creates the conference-wide line graph showing the total number of SEC players drafted each year from 2011 to 2025. It produces Figure 1 used in the final report.
 
-03_funct_Plots.R
+03_funct_Plots.R:
 This script produces multiple visualizations, including individual school bar charts, the heat map, and Poisson regression plots. It contains the primary plotting functions used throughout the RMD.
 
-04_percent_map.R
+04_percent_map.R:
 This script computes the year-to-year percentage changes used in the heat map. It formats the data so it can be visualized consistently across all SEC schools.
 
-06_poisson_visual.R
+06_poisson_visual.R:
 This script fits Poisson regression models for each SEC school to analyze long-term trends in NFL player output. It produces the regression plots shown in Figure 4.
 
-07_rankings.R
+07_rankings.R:
 This script calculates and visualizes slope values from the Poisson regression models. It generates the rankings chart in Figure 5 that summarizes long-term school performance.
 
 ________________________________________________________________________________________________________________________________________
