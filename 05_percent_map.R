@@ -1,7 +1,7 @@
 # Load data from RDS file
 data_set <- readRDS("cleaned_data.RDS")
 
-# Split Years_From_To into Start and End, convert to integers, fill NA End with Start
+# Split Years_From_To into Start and End years, convert to integers, fill NA End with Start
 data_set <- data_set %>%
   separate(Years_From_To, into = c("Start", "End"), sep = "-", convert = TRUE, fill = "right") %>%
   mutate(
@@ -26,7 +26,7 @@ yearly_pct <- yearly_full %>%
     pct_change = ifelse(
       lag(Players) > 0 & Players > 0,
       round(((Players - lag(Players)) / lag(Players)) * 100, 2),
-      NA # avoid divide-by-zero or meaningless jumps
+      NA
     ),
     Label = paste0(lag(Start), "→", Start)
   ) %>%
@@ -35,7 +35,7 @@ yearly_pct <- yearly_full %>%
 # Prepare data for heatmap, factorize labels for order
 heatmap_data <- yearly_pct %>%
   mutate(
-    Label = factor(Label, levels = unique(Label)) # Keep proper year order
+    Label = factor(Label, levels = unique(Label))
   )
 
 # Create heatmap plot with gradient fill for percent change

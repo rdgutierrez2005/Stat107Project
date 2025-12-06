@@ -1,6 +1,7 @@
+# Load data from RDS file
 df <- readRDS("cleaned_data.RDS")
 
-# Make sure Start exists (if not already separated)
+# Split Years_From_To into Start and End, convert to integers, fill NA End with Start
 df <- df %>%
   separate(Years_From_To, into = c("Start", "End"),
            sep = "-", convert = TRUE, fill = "right") %>%
@@ -9,12 +10,12 @@ df <- df %>%
     End = if_else(is.na(End), Start, as.integer(End))
   )
 
-# Count players per school per year
+# Count players by school and start year
 counts_by_school <- df %>%
   group_by(School, Start) %>%
   summarise(count = n(), .groups = "drop")
 
-# Fit Poisson regression for each school
+# Fit Poisson regression model for each school
 models_by_school <- counts_by_school %>%
   group_by(School) %>%
   nest() %>%
@@ -25,12 +26,13 @@ models_by_school <- counts_by_school %>%
     results = map(model, tidy)
   )
 
+# Augment data with model predictions for each school
 models_by_school <- models_by_school %>%
   mutate(
     augmented = map(model, augment, type.predict = "response")
   )
 
-
+# Create plots for each school with points and fitted line
 plots <- models_by_school %>%
   mutate(
     plot = map2(
@@ -48,5 +50,5 @@ plots <- models_by_school %>%
     )
   )
 
-# Print all plots one by one
+# Print each plot sequentially
 walk(plots$plot, print)

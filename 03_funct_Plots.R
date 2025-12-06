@@ -1,5 +1,6 @@
 # Load cleaned data
 fixed_data <- readRDS("cleaned_data.RDS")
+
 # Separate Years_From_To into Start and End
 fixed_data <- fixed_data %>%
   separate(Years_From_To, into = c("Start", "End"), sep = "-", convert = TRUE, fill = "right") %>%
@@ -7,13 +8,16 @@ fixed_data <- fixed_data %>%
     Start = as.integer(Start),
     End = if_else(is.na(End), Start, as.integer(End))
   )
+
 # Count players per school PER YEAR
 yearly_summary <- fixed_data %>%
   group_by(School, Start) %>%
   summarise(Players = n(), .groups = "drop")
+
 # Get unique schools and global y-axis limit
 teams <- unique(yearly_summary$School)
 y_max <- max(yearly_summary$Players, na.rm = TRUE)
+
 # Generate plots for each school (YEARLY)
 plots <- list()
 for (team in teams) {
